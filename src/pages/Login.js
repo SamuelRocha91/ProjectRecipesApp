@@ -9,6 +9,13 @@ function Login() {
   const [login, setLogin] = useState(loginState);
   const [isDisabled, setIsDisabled] = useState(true);
 
+  const handleChange = ({ target: { name, value } }) => {
+    setLogin({
+      ...login,
+      [name]: value,
+    });
+  };
+
   useEffect(() => {
     // regex para validar email: https://horadecodar.com.br/2020/09/07/expressao-regular-para-validar-e-mail-javascript-regex/
     const validateInputs = () => {
@@ -26,11 +33,12 @@ function Login() {
     validateInputs();
   }, [login]);
 
-  const handleChange = ({ target: { name, value } }) => {
-    setLogin({
-      ...login,
-      [name]: value,
-    });
+  const handleSubmit = () => {
+    const user = {
+      email: login.email,
+    };
+
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   return (
@@ -53,6 +61,7 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ isDisabled }
+        onClick={ handleSubmit }
       >
         Entrar
       </button>
