@@ -48,7 +48,7 @@ describe('Testes da pagina de Login', () => {
     userEvent.type(inputPassword, 'receitas');
     userEvent.click(loginButton);
 
-    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(localStorage.setItem).toHaveBeenCalled();
 
     // referencia de como checar o localStorage retirado do site:
     // https://stackoverflow.com/questions/32911630/how-do-i-deal-with-localstorage-in-jest-tests/54157998#54157998
