@@ -2,13 +2,14 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
+import Recipes from './pages/Recipes';
 
 function App() {
   return (
     <Switch>
-      <Route exact path="/" />
-      <Route path="/meals" />
-      <Route path="/drinks" />
+      <Route exact path="/" component={ Login } />
+      <Route path="/meals" render={ (props) => <Recipes { ...props } /> } />
+      <Route path="/drinks" render={ (props) => <Recipes { ...props } /> } />
       <Route path="/meals/:id-da-receita" />
       <Route path="/drinks/:id-da-receita" />
       <Route path="/meals/:id-da-receita/in-progress" />
