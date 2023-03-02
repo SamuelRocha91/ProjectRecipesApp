@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const loginState = {
@@ -42,30 +43,37 @@ function Login() {
   };
 
   return (
-    <form>
-      <input
-        type="text"
-        name="email"
-        data-testid="email-input"
-        placeholder="Email"
-        onChange={ handleChange }
-      />
-      <input
-        type="password"
-        name="password"
-        data-testid="password-input"
-        placeholder="Senha"
-        onChange={ handleChange }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ isDisabled }
-        onClick={ handleSubmit }
-      >
-        Entrar
-      </button>
-    </form>
+    <section>
+      <div>
+        <h1>Login</h1>
+      </div>
+      <form>
+        <input
+          type="text"
+          name="email"
+          data-testid="email-input"
+          placeholder="Email"
+          onChange={ handleChange }
+        />
+        <input
+          type="password"
+          name="password"
+          data-testid="password-input"
+          placeholder="Senha"
+          onChange={ handleChange }
+        />
+        <Link to="/meals">
+          <button
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ isDisabled }
+            onClick={ handleSubmit }
+          >
+            Entrar
+          </button>
+        </Link>
+      </form>
+    </section>
   );
 }
 
