@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Profile from '../pages/Profile';
-import renderWithRouter from '../helpers/renderWithRouter';
+import { renderWithRouter } from '../helpers/renderWithRouter';
 
 describe('Verifica pagina de profile', () => {
   const usuario = () => {
