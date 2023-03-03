@@ -1,62 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
+import { fetchCategories, fetchApi,
+  fetchMealsByCategorie, fetchDrinksByCategorie } from '../services';
+import RecipesContext from '../context/RecipesContext';
 
 function Recipes({ location }) {
-  const [foods, setFoods] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  const fetchApi = (url, food) => {
-    fetch(url).then((data) => data.json()).then((response) => {
-      const maxRec = 12;
-      if (food === 'meals') {
-        const meals = response.meals
-          .map(({ strMealThumb, strMeal }) => ({ strMealThumb, strMeal }))
-          .filter((resp, index) => index < maxRec);
-        setFoods({ meals });
-      } else {
-        const drinks = response.drinks
-          .map(({ strDrinkThumb, strDrink }) => ({ strDrinkThumb, strDrink }))
-          .filter((resp, index) => index < maxRec);
-        setFoods({ drinks });
-      }
-    });
-  };
-
-  const fetchCategories = (url, food) => {
-    const maxFilter = 5;
-    if (food === 'meals') {
-      fetch(url).then((data) => data.json()).then((response) => {
-        const filterCategories = response.meals
-          .filter((categorie, index) => index < maxFilter)
-          .map(({ strCategory }) => strCategory);
-        setCategories(filterCategories);
-      });
-    } else {
-      fetch(url).then((data) => data.json()).then((response) => {
-        const filterCategories = response.drinks
-          .filter((categorie, index) => index < maxFilter)
-          .map(({ strCategory }) => strCategory);
-        setCategories(filterCategories);
-      });
-    }
-  };
+  const { foods, setFoods, categories, setCategories } = useContext(RecipesContext);
 
   useEffect(() => {
     // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals.
 
     if (location.pathname === '/meals') {
-      fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
-      fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list', 'meals');
+      fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
+      fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list', 'meals', setCategories);
     } else {
-      fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
-      fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', 'drinks');
+      fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks', setFoods);
+      fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', 'drinks', setCategories);
     }
   }, [location.pathname]);
+
+  const filterResults = (categorie) => {
+    if (location.pathname === '/meals') {
+      fetchMealsByCategorie(categorie, setFoods);
+    } else {
+      fetchDrinksByCategorie(categorie, setFoods);
+    }
+  };
 
   return (
     <div>
       {categories && categories.map((categorie, index) => (
         <button
+          onClick={ () => filterResults(categorie) }
           key={ `${categorie} ${index}` }
           data-testid={ `${categorie}-category-filter` }
         >
@@ -64,6 +39,12 @@ function Recipes({ location }) {
 
         </button>
       ))}
+      <button
+        onClick={ () => filterResults('all') }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {foods && foods.meals && foods.meals.map((food, index) => (
         <div key={ `strMeal ${index}` } data-testid={ `${index}-recipe-card` }>
           <img
