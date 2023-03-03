@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Login from '../pages/Login';
-import renderWithRouter from '../helpers/renderWithRouter';
+import { renderWithRouter } from '../helpers/renderWithRouter';
 
 // variáveis globais:
 const emailTestID = 'email-input';
