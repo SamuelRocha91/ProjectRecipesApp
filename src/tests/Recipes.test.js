@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import App from '../App';
 import { categoriesDrinks, categoriesMeals, drinks, meals } from '../helpers/mockData';
+import RecipesProvider from '../context/RecipesProvider';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 
 describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
@@ -18,7 +19,12 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
   });
 
   test('renderiza doze receitas de almoços', async () => {
-    const { history, debug } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    const { history, debug } = renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/meals'] },
+    );
 
     const meal = await screen.findByText('Corba');
     expect(meal).toBeInTheDocument();
@@ -33,14 +39,19 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
     expect(images).toHaveLength(12);
   });
   test('renderiza cinco botões referentes a categorias filtradas pela Api', async () => {
-    const { debug } = renderWithRouter(<App />, { initialEntries: ['/meals'] });
+    const { debug } = renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/meals'] },
+    );
 
     const meal = await screen.findByText('Corba');
     expect(meal).toBeInTheDocument();
 
     const btnFilters = screen.getAllByRole('button');
     debug();
-    expect(btnFilters).toHaveLength(5);
+    expect(btnFilters).toHaveLength(6);
     expect(btnFilters[0]).toHaveTextContent('Beef');
   });
 });
@@ -60,7 +71,12 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
   });
 
   test('renderiza doze receitas de almoços', async () => {
-    const { history, debug } = renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    const { history, debug } = renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/drinks'] },
+    );
 
     const drink = await screen.findByText('GG');
     expect(drink).toBeInTheDocument();
@@ -75,14 +91,19 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
     expect(images).toHaveLength(12);
   });
   test('renderiza cinco botões referentes a categorias filtradas pela Api', async () => {
-    renderWithRouter(<App />, { initialEntries: ['/drinks'] });
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+      { initialEntries: ['/drinks'] },
+    );
 
     const drink = await screen.findByText('GG');
     expect(drink).toBeInTheDocument();
 
     const btnFilters = screen.getAllByRole('button');
 
-    expect(btnFilters).toHaveLength(5);
+    expect(btnFilters).toHaveLength(6);
     expect(btnFilters[0]).toHaveTextContent('Ordinary Drink');
   });
 });
