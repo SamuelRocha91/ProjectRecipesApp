@@ -42,7 +42,7 @@ function Recipes({ location }) {
   };
 
   useEffect(() => {
-    // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals
+    // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals.
     const { pathname } = location;
     if (pathname === '/meals') {
       fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
