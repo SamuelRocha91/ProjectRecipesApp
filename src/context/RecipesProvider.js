@@ -17,7 +17,7 @@ function RecipesProvider({ children }) {
 }
 
 RecipesProvider.propTypes = {
-  children: propTypes.shape.isRequired,
+  children: propTypes.node.isRequired,
 };
 
 export default RecipesProvider;
