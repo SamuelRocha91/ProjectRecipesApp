@@ -4,21 +4,27 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Recipes from './pages/Recipes';
 import Login from './pages/Login';
+import AppProvider from './context/AppProvider';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={ Login } />
-      <Route path="/meals" render={ (props) => <Recipes { ...props } /> } />
-      <Route path="/drinks" render={ (props) => <Recipes { ...props } /> } />
-      <Route path="/meals/:id-da-receita" />
-      <Route path="/drinks/:id-da-receita" />
-      <Route path="/meals/:id-da-receita/in-progress" />
-      <Route path="/drinks/:id-da-receita/in-progress" />
-      <Route path="/profile" />
-      <Route path="/done-recipes" />
-      <Route path="/favorite-recipes" />
-    </Switch>
+    <AppProvider>
+      <Switch>
+        <Route exact path="/" component={ Login } />
+        <Route path="/meals" render={ (props) => <Recipes { ...props } /> } />
+        <Route path="/drinks" render={ (props) => <Recipes { ...props } /> } />
+        <Route path="/meals/:id-da-receita" />
+        <Route path="/drinks/:id-da-receita" />
+        <Route path="/meals/:id-da-receita/in-progress" />
+        <Route path="/drinks/:id-da-receita/in-progress" />
+        <Route path="/profile" component={ Profile } />
+        <Route path="/done-recipes" component={ DoneRecipes } />
+        <Route path="/favorite-recipes" component={ FavoriteRecipes } />
+      </Switch>
+    </AppProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import Header from '../components/Header';
 
 function Recipes({ location }) {
   const [foods, setFoods] = useState([]);
@@ -55,6 +56,8 @@ function Recipes({ location }) {
 
   return (
     <div>
+      { location.pathname === '/meals' && <Header title="Meals" /> }
+      { location.pathname === '/drinks' && <Header title="Drinks" />}
       {categories && categories.map((categorie, index) => (
         <button
           key={ `${categorie} ${index}` }
