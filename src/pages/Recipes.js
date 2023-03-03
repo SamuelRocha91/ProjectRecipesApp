@@ -43,15 +43,15 @@ function Recipes({ location }) {
 
   useEffect(() => {
     // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals.
-    const { pathname } = location;
-    if (pathname === '/meals') {
+
+    if (location.pathname === '/meals') {
       fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals');
       fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list', 'meals');
     } else {
       fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks');
       fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', 'drinks');
     }
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div>
