@@ -1,8 +1,15 @@
 import { screen } from '@testing-library/react';
 import App from '../App';
 import { categoriesDrinks, categoriesMeals, drinks, meals } from '../helpers/mockData';
-import RecipesProvider from '../context/RecipesProvider';
+import RecipesContext from '../context/RecipesContext';
 import { renderWithRouter } from '../helpers/renderWithRouter';
+
+const values = {
+  foods: [],
+  setFoods: jest.fn(),
+  categories: [],
+  setCategories: jest.fn(),
+};
 
 describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
   beforeEach(() => {
@@ -20,9 +27,9 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
 
   test('renderiza doze receitas de almoços', async () => {
     const { history, debug } = renderWithRouter(
-      <RecipesProvider>
+      <RecipesContext.Provider value={ values }>
         <App />
-      </RecipesProvider>,
+      </RecipesContext.Provider>,
       { initialEntries: ['/meals'] },
     );
 
@@ -40,9 +47,9 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
   });
   test('renderiza cinco botões referentes a categorias filtradas pela Api', async () => {
     const { debug } = renderWithRouter(
-      <RecipesProvider>
+      <RecipesContext.Provider value={ values }>
         <App />
-      </RecipesProvider>,
+      </RecipesContext.Provider>,
       { initialEntries: ['/meals'] },
     );
 
@@ -72,9 +79,9 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
 
   test('renderiza doze receitas de almoços', async () => {
     const { history, debug } = renderWithRouter(
-      <RecipesProvider>
+      <RecipesContext.Provider value={ values }>
         <App />
-      </RecipesProvider>,
+      </RecipesContext.Provider>,
       { initialEntries: ['/drinks'] },
     );
 
@@ -92,9 +99,9 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
   });
   test('renderiza cinco botões referentes a categorias filtradas pela Api', async () => {
     renderWithRouter(
-      <RecipesProvider>
+      <RecipesContext.Provider value={ values }>
         <App />
-      </RecipesProvider>,
+      </RecipesContext.Provider>,
       { initialEntries: ['/drinks'] },
     );
 

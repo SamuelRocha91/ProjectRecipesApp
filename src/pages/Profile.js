@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 function Profile() {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState({ user: '', email: '' });
+
+  useEffect(() => {
+    const userStorage = JSON.parse(localStorage.getItem('user'));
+    setUser(userStorage);
+  }, []);
+
   const logout = () => { localStorage.removeItem('user'); };
   return (
     <main>
-      <img src="../images/profileIcon.svg" alt="imgprofile" />
-      <p data-testid="profile-email">{user.email}</p>
+      <Header
+        title="Profile"
+        enableSearchIcon={ false }
+      />
+      <p data-testid="profile-email">{user?.email}</p>
       <Link to="/done-recipes">
         <button
           type="button"
