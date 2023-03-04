@@ -1,4 +1,5 @@
 const maxRec = 12;
+const sorry = 'Sorry, we haven';
 
 export const fetchCategories = (url, food, setCategories) => {
   const maxFilter = 5;
@@ -21,8 +22,10 @@ export const fetchCategories = (url, food, setCategories) => {
 
 export const fetchApi = (url, food, setFoods) => {
   fetch(url).then((data) => data.json()).then((response) => {
+    if (response.meals === null || response.drinks === null) {
+      return global.alert(`${sorry}'t found any recipes for these filters.`);
+    }
     if (food === 'meals') {
-      console.log(response);
       const meals = response.meals
         .map(({ strMealThumb, strMeal, idMeal: id }) => ({ strMealThumb, strMeal, id }))
         .filter((resp, index) => index < maxRec);

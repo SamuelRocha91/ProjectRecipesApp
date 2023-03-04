@@ -97,8 +97,6 @@ describe('Verifica se o componente SearchBar...', () => {
 
     const name = screen.getByTestId(radioName);
 
-    debug();
-
     userEvent.click(name);
     userEvent.click(screen.getByTestId(btnSearch));
 
@@ -149,7 +147,7 @@ describe('Verifica se o componente SearchBar...', () => {
       json: jest.fn().mockResolvedValue(drinks),
     });
 
-    const { debug } = renderWithRouter(
+    renderWithRouter(
       <RecipesProvider>
         <AppProvider>
           <App />
@@ -171,7 +169,6 @@ describe('Verifica se o componente SearchBar...', () => {
 
     userEvent.type(screen.getByTestId(inputText), 'vodka');
     userEvent.click(ingredient);
-    debug();
     userEvent.click(screen.getByTestId(btnSearch));
 
     expect(global.fetch).toHaveBeenLastCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=vodka');

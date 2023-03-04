@@ -4,7 +4,7 @@ import RecipesContext from '../context/RecipesContext';
 import { fetchApi } from '../services';
 
 function SearchBar() {
-  const { setFoods } = useContext(RecipesContext);
+  const { setFoods, setSearchBarFetch } = useContext(RecipesContext);
   const history = useHistory();
   const { location: { pathname } } = history;
   const food = pathname === '/meals' ? 'meals' : 'drinks';
@@ -22,16 +22,19 @@ function SearchBar() {
   const newRequest = () => {
     if (search.radioButtons === 'Ingredient') {
       const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search.name}`;
+      setSearchBarFetch(true);
       return fetchApi(url, food, setFoods);
     }
     if (search.radioButtons === 'Name') {
       const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.name}`;
+      setSearchBarFetch(true);
       return fetchApi(url, food, setFoods);
     }
     if (search.radioButtons === 'First' && search.name.length !== 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
     const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search.name}`;
+    setSearchBarFetch(true);
     fetchApi(url, food, setFoods);
   };
 

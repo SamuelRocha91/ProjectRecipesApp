@@ -6,9 +6,22 @@ import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 
 function Recipes({ location, history }) {
-  const { foods, setFoods, categories, setCategories } = useContext(RecipesContext);
+  const { foods, setFoods, categories,
+    setCategories, setFoodDetails, searchBarFetch,
+    setSearchBarFetch } = useContext(RecipesContext);
   const [categorieSelected, setCategorieSelected] = useState(null);
 
+  if (foods.length !== 0 && searchBarFetch) {
+    if (location.pathname === '/drinks' && foods.drinks.length === 1) {
+      setSearchBarFetch(false);
+      history.push(`/drinks/${foods.drinks[0].id}`);
+    }
+
+    if (location.pathname === '/meals' && foods.meals.length === 1) {
+      setSearchBarFetch(false);
+      history.push(`/meals/${foods.meals[0].id}`);
+    }
+  }
   useEffect(() => {
     // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals.
 
@@ -23,18 +36,31 @@ function Recipes({ location, history }) {
 
   const filterResults = (categorie) => {
     if (location.pathname === '/meals') {
+      setSearchBarFetch(false);
       fetchMealsByCategorie(categorie, setFoods, categorieSelected);
     } else {
+      setSearchBarFetch(false);
       fetchDrinksByCategorie(categorie, setFoods, categorieSelected);
     }
+    setSearchBarFetch(false);
     setCategorieSelected(categorie);
   };
 
-  const detailRecipes = (id) => {
+  const detailRecipes = (id, index) => {
     if (location.pathname === '/meals') {
+      const food = foods.meals[index];
+      setFoodDetails([{ type: 'meals',
+        id: food.id,
+        name: food.strMeal,
+        image: food.strMealThumb }]);
       history.push(`/meals/${id}`);
     } else {
+      const food = foods.drinks[index];
       history.push(`/drinks/${id}`);
+      setFoodDetails([{ type: 'drinks',
+        id: food.id,
+        name: food.strDrink,
+        image: food.strDrinkThumb }]);
     }
   };
 
@@ -63,7 +89,7 @@ function Recipes({ location, history }) {
         {foods && foods.meals && foods.meals.map((food, index) => (
           <div
             key={ `strMeal ${index}` }
-            onClick={ () => detailRecipes(food.id) }
+            onClick={ () => detailRecipes(food.id, index) }
             data-testid={ `${index}-recipe-card` }
             role="presentation"
           >
@@ -78,7 +104,7 @@ function Recipes({ location, history }) {
         {foods && foods.drinks && foods.drinks.map((food, index) => (
           <div
             key={ `strDrink ${food.id}` }
-            onClick={ () => detailRecipes(food.id) }
+            onClick={ () => detailRecipes(food.id, index) }
             role="presentation"
             data-testid={ `${index}-recipe-card` }
           >
