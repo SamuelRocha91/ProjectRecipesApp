@@ -1,12 +1,13 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import propTypes from 'prop-types';
-import Header from '../components/Header';
 import { fetchCategories, fetchApi,
   fetchMealsByCategorie, fetchDrinksByCategorie } from '../services';
 import RecipesContext from '../context/RecipesContext';
+import Header from '../components/Header';
 
-function Recipes({ location }) {
+function Recipes({ location, history }) {
   const { foods, setFoods, categories, setCategories } = useContext(RecipesContext);
+  const [categorieSelected, setCategorieSelected] = useState(null);
 
   useEffect(() => {
     // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals.
@@ -22,16 +23,27 @@ function Recipes({ location }) {
 
   const filterResults = (categorie) => {
     if (location.pathname === '/meals') {
-      fetchMealsByCategorie(categorie, setFoods);
+      fetchMealsByCategorie(categorie, setFoods, categorieSelected);
     } else {
-      fetchDrinksByCategorie(categorie, setFoods);
+      fetchDrinksByCategorie(categorie, setFoods, categorieSelected);
+    }
+    setCategorieSelected(categorie);
+  };
+
+  const detailRecipes = (id) => {
+    if (location.pathname === '/meals') {
+      history.push(`/meals/${id}`);
+    } else {
+      history.push(`/drinks/${id}`);
     }
   };
 
   return (
     <div>
-      { location.pathname === '/meals' && <Header title="Meals" /> }
-      { location.pathname === '/drinks' && <Header title="Drinks" />}
+      <Header
+        title={ location.pathname === '/meals' ? 'Meals' : 'Drinks' }
+
+      />
       {categories && categories.map((categorie, index) => (
         <button
           onClick={ () => filterResults(categorie) }
@@ -49,7 +61,12 @@ function Recipes({ location }) {
         All
       </button>
       {foods && foods.meals && foods.meals.map((food, index) => (
-        <div key={ `strMeal ${index}` } data-testid={ `${index}-recipe-card` }>
+        <div
+          key={ `strMeal ${index}` }
+          onClick={ () => detailRecipes(food.id) }
+          data-testid={ `${index}-recipe-card` }
+          role="presentation"
+        >
           <img
             alt={ food.strMeal }
             src={ food.strMealThumb }
@@ -58,14 +75,19 @@ function Recipes({ location }) {
           <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
         </div>
       ))}
-      {foods && foods.drinks && foods.drinks.map(({ strDrinkThumb, strDrink }, index) => (
-        <div key={ `strDrink ${index}` } data-testid={ `${index}-recipe-card` }>
+      {foods && foods.drinks && foods.drinks.map((food, index) => (
+        <div
+          key={ `strDrink ${food.id}` }
+          onClick={ () => detailRecipes(food.id) }
+          role="presentation"
+          data-testid={ `${index}-recipe-card` }
+        >
           <img
-            alt={ strDrink }
-            src={ strDrinkThumb }
+            alt={ food.strDrink }
+            src={ food.strDrinkThumb }
             data-testid={ `${index}-card-img` }
           />
-          <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
+          <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
         </div>
       ))}
     </div>
@@ -75,6 +97,9 @@ function Recipes({ location }) {
 Recipes.propTypes = {
   location: propTypes.shape({
     pathname: propTypes.string.isRequired,
+  }).isRequired,
+  history: propTypes.shape({
+    push: propTypes.func.isRequired,
   }).isRequired,
 };
 

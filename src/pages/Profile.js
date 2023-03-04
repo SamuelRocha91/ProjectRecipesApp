@@ -10,7 +10,7 @@ function Profile() {
     setUser(userStorage);
   }, []);
 
-  const logout = () => { localStorage.removeItem('user'); };
+  const logout = () => { localStorage.clear(); };
   return (
     <main>
       <Header

@@ -1,7 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Login from '../pages/Login';
 import { renderWithRouter } from '../helpers/renderWithRouter';
+import RecipesProvider from '../context/RecipesProvider';
+import App from '../App';
 
 // variáveis globais:
 const emailTestID = 'email-input';
@@ -10,7 +11,11 @@ const buttonTestID = 'login-submit-btn';
 
 describe('Testes da pagina de Login', () => {
   it('Testa se existem 2 inputs na tela e um botão', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
 
     const inputEmail = screen.getByTestId(emailTestID);
     const inputPassword = screen.getByTestId(passwordTestID);
@@ -22,7 +27,11 @@ describe('Testes da pagina de Login', () => {
   });
 
   it('Testa se ao digitar um email e senha válidos o botão é habilitado', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
 
     const inputEmail = screen.getByTestId(emailTestID);
     const inputPassword = screen.getByTestId(passwordTestID);
@@ -37,7 +46,11 @@ describe('Testes da pagina de Login', () => {
   });
 
   it('Testa se a chave email é salva no localStorage', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(
+      <RecipesProvider>
+        <App />
+      </RecipesProvider>,
+    );
     jest.spyOn(Storage.prototype, 'setItem');
 
     const inputEmail = screen.getByTestId(emailTestID);
