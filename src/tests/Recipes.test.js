@@ -231,5 +231,4 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
 
     expect(screen.getByTestId('All-category-filter')).toHaveTextContent('All');
   });
-
 });
