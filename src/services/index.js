@@ -22,6 +22,7 @@ export const fetchCategories = (url, food, setCategories) => {
 export const fetchApi = (url, food, setFoods) => {
   fetch(url).then((data) => data.json()).then((response) => {
     if (food === 'meals') {
+      console.log(response);
       const meals = response.meals
         .map(({ strMealThumb, strMeal, idMeal: id }) => ({ strMealThumb, strMeal, id }))
         .filter((resp, index) => index < maxRec);

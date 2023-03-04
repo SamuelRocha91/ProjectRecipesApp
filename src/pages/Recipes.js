@@ -39,58 +39,59 @@ function Recipes({ location, history }) {
   };
 
   return (
-    <div>
+    <>
       <Header
         title={ location.pathname === '/meals' ? 'Meals' : 'Drinks' }
-
       />
-      {categories && categories.map((categorie, index) => (
-        <button
-          onClick={ () => filterResults(categorie) }
-          key={ `${categorie} ${index}` }
-          data-testid={ `${categorie}-category-filter` }
-        >
-          {categorie}
+      <div>
+        {categories && categories.map((categorie, index) => (
+          <button
+            onClick={ () => filterResults(categorie) }
+            key={ `${categorie} ${index}` }
+            data-testid={ `${categorie}-category-filter` }
+          >
+            {categorie}
 
+          </button>
+        ))}
+        <button
+          onClick={ () => filterResults('all') }
+          data-testid="All-category-filter"
+        >
+          All
         </button>
-      ))}
-      <button
-        onClick={ () => filterResults('all') }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {foods && foods.meals && foods.meals.map((food, index) => (
-        <div
-          key={ `strMeal ${index}` }
-          onClick={ () => detailRecipes(food.id) }
-          data-testid={ `${index}-recipe-card` }
-          role="presentation"
-        >
-          <img
-            alt={ food.strMeal }
-            src={ food.strMealThumb }
-            data-testid={ `${index}-card-img` }
-          />
-          <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
-        </div>
-      ))}
-      {foods && foods.drinks && foods.drinks.map((food, index) => (
-        <div
-          key={ `strDrink ${food.id}` }
-          onClick={ () => detailRecipes(food.id) }
-          role="presentation"
-          data-testid={ `${index}-recipe-card` }
-        >
-          <img
-            alt={ food.strDrink }
-            src={ food.strDrinkThumb }
-            data-testid={ `${index}-card-img` }
-          />
-          <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
-        </div>
-      ))}
-    </div>
+        {foods && foods.meals && foods.meals.map((food, index) => (
+          <div
+            key={ `strMeal ${index}` }
+            onClick={ () => detailRecipes(food.id) }
+            data-testid={ `${index}-recipe-card` }
+            role="presentation"
+          >
+            <img
+              alt={ food.strMeal }
+              src={ food.strMealThumb }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
+          </div>
+        ))}
+        {foods && foods.drinks && foods.drinks.map((food, index) => (
+          <div
+            key={ `strDrink ${food.id}` }
+            onClick={ () => detailRecipes(food.id) }
+            role="presentation"
+            data-testid={ `${index}-recipe-card` }
+          >
+            <img
+              alt={ food.strDrink }
+              src={ food.strDrinkThumb }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
