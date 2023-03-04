@@ -9,9 +9,10 @@ function Recipes({ location, history }) {
   const { foods, setFoods, categories,
     setCategories, setFoodDetails, searchBarFetch,
     setSearchBarFetch } = useContext(RecipesContext);
-  const [categorieSelected, setCategorieSelected] = useState(null);
+  const [categorieSelected, setCategorieSelected] = useState(null); // estado que controla a última categoria a ter sido selecionada
 
   if (foods.length !== 0 && searchBarFetch) {
+    // aqui o objetivo é filtrar se a requisição foi feita pelo searchBar e se retornou apenas uma receita
     if (location.pathname === '/drinks' && foods.drinks.length === 1) {
       setSearchBarFetch(false);
       history.push(`/drinks/${foods.drinks[0].id}`);
@@ -23,7 +24,8 @@ function Recipes({ location, history }) {
     }
   }
   useEffect(() => {
-    // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals.
+    // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals com 12 receitas originais.
+    // a função recebe a url, a rota e a função que vai manipular os dados retornados
 
     if (location.pathname === '/meals') {
       fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
@@ -35,6 +37,7 @@ function Recipes({ location, history }) {
   }, [location.pathname]);
 
   const filterResults = (categorie) => {
+    // função que faz uma requisição para a api de acordo com a categoria da comida que o usuário quer acessar
     if (location.pathname === '/meals') {
       setSearchBarFetch(false);
       fetchMealsByCategorie(categorie, setFoods, categorieSelected);
@@ -47,6 +50,7 @@ function Recipes({ location, history }) {
   };
 
   const detailRecipes = (id, index) => {
+    // função que redireciona o usuário para a página de detalhes
     if (location.pathname === '/meals') {
       const food = foods.meals[index];
       setFoodDetails([{ type: 'meals',
