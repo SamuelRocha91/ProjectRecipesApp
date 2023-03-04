@@ -21,15 +21,18 @@ function SearchBar() {
 
   const newRequest = () => {
     if (search.radioButtons === 'Ingredient') {
-      return fetchApi(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.name}`, food, setFoods);
+      const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search.name}`;
+      return fetchApi(url, food, setFoods);
     }
     if (search.radioButtons === 'Name') {
-      return fetchApi(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search.name}`, food, setFoods);
+      const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.name}`;
+      return fetchApi(url, food, setFoods);
     }
     if (search.radioButtons === 'First' && search.name.length !== 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
-    fetchApi(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search.name}`, food, setFoods);
+    const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search.name}`;
+    fetchApi(url, food, setFoods);
   };
 
   return (
