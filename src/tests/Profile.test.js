@@ -3,6 +3,8 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 import RecipesProvider from '../context/RecipesProvider';
+import AppProvider from '../context/AppProvider';
+
 import App from '../App';
 
 const localStorageMock = (function () {
@@ -45,7 +47,9 @@ describe('Verifica pagina de profile', () => {
     setLocalStorage(user, object);
     const { history } = renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
       { initialEntries: ['/profile'] },
     );
@@ -59,7 +63,9 @@ describe('Verifica pagina de profile', () => {
     setLocalStorage(user, object);
     const { history } = renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
       { initialEntries: ['/profile'] },
     );
@@ -73,7 +79,9 @@ describe('Verifica pagina de profile', () => {
     setLocalStorage(user, object);
     const { history } = renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
       { initialEntries: ['/profile'] },
     );
@@ -87,7 +95,9 @@ describe('Verifica pagina de profile', () => {
     setLocalStorage(user, object);
     renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
       { initialEntries: ['/profile'] },
     );
@@ -100,12 +110,30 @@ describe('Verifica pagina de profile', () => {
     setLocalStorage(user, object);
     renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
       { initialEntries: ['/profile'] },
     );
     const userImg = screen.getByRole('img');
     expect(userImg).toBeInTheDocument();
+  });
+  test('Verifica se ao clicar no botão logou o que está salvo no localStorage é apagado', () => {
+    setLocalStorage(user, object);
+    jest.spyOn(Storage.prototype, 'setItem');
+
+    renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
+    expect(JSON.parse(localStorage.getItem(user))).toEqual(object);
+    userEvent.click(screen.getByTestId('profile-logout-btn'));
+    expect(localStorage.getItem(user)).toEqual(undefined);
   });
 });
 

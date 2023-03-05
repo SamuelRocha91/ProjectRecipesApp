@@ -2,6 +2,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 import RecipesProvider from '../context/RecipesProvider';
+import AppProvider from '../context/AppProvider';
 import App from '../App';
 
 // variáveis globais:
@@ -13,7 +14,9 @@ describe('Testes da pagina de Login', () => {
   it('Testa se existem 2 inputs na tela e um botão', () => {
     renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
     );
 
@@ -29,7 +32,9 @@ describe('Testes da pagina de Login', () => {
   it('Testa se ao digitar um email e senha válidos o botão é habilitado', () => {
     renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
     );
 
@@ -48,7 +53,9 @@ describe('Testes da pagina de Login', () => {
   it('Testa se a chave email é salva no localStorage', () => {
     renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
     );
     jest.spyOn(Storage.prototype, 'setItem');
