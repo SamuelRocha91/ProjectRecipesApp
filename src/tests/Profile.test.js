@@ -1,18 +1,58 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Profile from '../pages/Profile';
 import { renderWithRouter } from '../helpers/renderWithRouter';
+import RecipesProvider from '../context/RecipesProvider';
+import AppProvider from '../context/AppProvider';
+
+import App from '../App';
+
+const localStorageMock = (function () {
+  let store = {};
+
+  return {
+    getItem(key) {
+      return store[key];
+    },
+
+    setItem(key, value) {
+      store[key] = value;
+    },
+
+    clear() {
+      store = {};
+    },
+
+    removeItem(key) {
+      delete store[key];
+    },
+
+    getAll() {
+      return store;
+    },
+  };
+}());
+
+Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+
+const setLocalStorage = (id, data) => {
+  window.localStorage.setItem(id, JSON.stringify(data));
+};
+const user = 'user';
+
+const object = { email: 'anfitras@0413.com' };
 
 describe('Verifica pagina de profile', () => {
-  const usuario = () => {
-    localStorage.setItem('user', JSON.stringify([{
-      email: 'anfitras@0413.com',
-    }]));
-  };
   test('Botão de Logout leva a tela de login', () => {
-    usuario();
-    const { history } = renderWithRouter(<Profile />);
+    setLocalStorage(user, object);
+    const { history } = renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
     const button = screen.getByRole('button', { name: /Logout/i });
     userEvent.click(button);
     const { pathname } = history.location;
@@ -20,8 +60,15 @@ describe('Verifica pagina de profile', () => {
   });
 
   test('Botão de Done Recipes leva a tela de receitas prontas', () => {
-    usuario();
-    const { history } = renderWithRouter(<Profile />);
+    setLocalStorage(user, object);
+    const { history } = renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
     const button = screen.getByRole('button', { name: /Done Recipes/i });
     userEvent.click(button);
     const { pathname } = history.location;
@@ -29,8 +76,15 @@ describe('Verifica pagina de profile', () => {
   });
 
   test('Botão de Favorite Recipes leva a tela de receitas favoritas', () => {
-    usuario();
-    const { history } = renderWithRouter(<Profile />);
+    setLocalStorage(user, object);
+    const { history } = renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
     const button = screen.getByRole('button', { name: /Favorite Recipes/i });
     userEvent.click(button);
     const { pathname } = history.location;
@@ -38,17 +92,49 @@ describe('Verifica pagina de profile', () => {
   });
 
   test('Verifica se aparece o email do local storage', () => {
-    usuario();
-    renderWithRouter(<Profile />);
-    const email = screen.getAllByText('anfitras@0413.com');
-    expect(email[0]).toBeInTheDocument();
-    expect(email[0]).toHaveTextContent(/anfitras@0413.com/i);
+    setLocalStorage(user, object);
+    renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
+    const email = screen.getByText('anfitras@0413.com');
+    expect(email).toBeInTheDocument();
+    expect(email).toHaveTextContent(/anfitras@0413.com/i);
   });
 
   test('Verifica se aparece a imagem', () => {
-    usuario();
-    renderWithRouter(<Profile />);
-    const userImg = screen.getAllByRole('img');
+    setLocalStorage(user, object);
+    renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
+    const userImg = screen.getByRole('img');
     expect(userImg).toBeInTheDocument();
   });
+  test('Verifica se ao clicar no botão logou o que está salvo no localStorage é apagado', () => {
+    setLocalStorage(user, object);
+    jest.spyOn(Storage.prototype, 'setItem');
+
+    renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/profile'] },
+    );
+    expect(JSON.parse(localStorage.getItem(user))).toEqual(object);
+    userEvent.click(screen.getByTestId('profile-logout-btn'));
+    expect(localStorage.getItem(user)).toEqual(undefined);
+  });
 });
+
+// mock realizado conforme referência ensinada no site https://robertmarshall.dev/blog/how-to-mock-local-storage-in-jest-tests/, acesso 04/03/2023 às 09:40.

@@ -1,4 +1,5 @@
 const maxRec = 12;
+const sorry = 'Sorry, we haven';
 
 export const fetchCategories = (url, food, setCategories) => {
   const maxFilter = 5;
@@ -21,40 +22,46 @@ export const fetchCategories = (url, food, setCategories) => {
 
 export const fetchApi = (url, food, setFoods) => {
   fetch(url).then((data) => data.json()).then((response) => {
+    if (response.meals === null || response.drinks === null) {
+      return global.alert(`${sorry}'t found any recipes for these filters.`);
+    }
     if (food === 'meals') {
       const meals = response.meals
-        .map(({ strMealThumb, strMeal }) => ({ strMealThumb, strMeal }))
+        .map(({ strMealThumb, strMeal, idMeal: id }) => ({ strMealThumb, strMeal, id }))
         .filter((resp, index) => index < maxRec);
       setFoods({ meals });
     } else {
       const drinks = response.drinks
-        .map(({ strDrinkThumb, strDrink }) => ({ strDrinkThumb, strDrink }))
+        .map(({ strDrinkThumb, strDrink, idDrink: id }) => ({ strDrinkThumb,
+          strDrink,
+          id }))
         .filter((resp, index) => index < maxRec);
       setFoods({ drinks });
     }
   });
 };
 
-export const fetchMealsByCategorie = (categorie, setFoods) => {
-  if (categorie === 'all') {
+export const fetchMealsByCategorie = (categorie, setFoods, selectCategorie) => {
+  if (categorie === 'all' || categorie === selectCategorie) {
     return fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
   }
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`).then((data) => data.json()).then((response) => {
     const meals = response.meals
-      .map(({ strMealThumb, strMeal }) => ({ strMealThumb, strMeal }))
+      .map(({ strMealThumb, strMeal, idMeal: id }) => ({ strMealThumb, strMeal, id }))
       .filter((resp, index) => index < maxRec);
     setFoods({ meals });
   });
 };
 
-export const fetchDrinksByCategorie = (categorie, setFoods) => {
-  if (categorie === 'all') {
+export const fetchDrinksByCategorie = (categorie, setFoods, selectCategorie) => {
+  if (categorie === 'all' || categorie === selectCategorie) {
     return fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks', setFoods);
   }
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`).then((data) => data.json()).then((response) => {
-    console.log(response);
     const drinks = response.drinks
-      .map(({ strDrinkThumb, strDrink }) => ({ strDrinkThumb, strDrink }))
+      .map(({ strDrinkThumb, strDrink, idDrink: id }) => ({ strDrinkThumb,
+        strDrink,
+        id }))
       .filter((resp, index) => index < maxRec);
     setFoods({ drinks });
   });

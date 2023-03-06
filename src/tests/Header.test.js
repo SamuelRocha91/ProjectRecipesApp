@@ -1,7 +1,8 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import appContext from '../context/AppContext';
+import AppProvider from '../context/AppProvider';
+import RecipesProvider from '../context/RecipesProvider';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 
 // variáveis globais:
@@ -9,19 +10,14 @@ const emailTestID = 'email-input';
 const passwordTestID = 'password-input';
 const buttonTestID = 'login-submit-btn';
 
-const values = {
-  searchIcon: true,
-  setSearchIcon: jest.fn(),
-  searchBox: false,
-  setSearchBox: jest.fn(),
-};
-
 describe('Testes do componente Header', () => {
   it('Testa se é possivel clicar no icone de perfil', () => {
     const { history } = renderWithRouter(
-      <appContext.Provider value={ values }>
-        <App />
-      </appContext.Provider>,
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
     );
 
     const inputEmail = screen.getByTestId(emailTestID);
@@ -48,7 +44,13 @@ describe('Testes do componente Header', () => {
   });
 
   it('Testa se nos componentes em que o icone de busca é renderizado, quando clickado é possivel digitar no input de texto', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+    );
 
     const inputEmail = screen.getByTestId(emailTestID);
     const inputPassword = screen.getByTestId(passwordTestID);
