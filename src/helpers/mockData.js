@@ -1,3 +1,5 @@
+const drinkTimes = 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg';
+
 export const categoriesMeals = {
   meals: [
     {
@@ -98,7 +100,7 @@ export const meals = {
 export const drinks = {
   drinks: [
     {
-      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+      strDrinkThumb: drinkTimes,
       strDrink: 'GG',
       idDrink: '15997',
     }, {
@@ -146,7 +148,7 @@ export const drinks = {
       strDrink: 'B-52',
       idDrink: '15853',
     }, {
-      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+      strDrinkThumb: drinkTimes,
       strDrink: 'GG',
       idDrink: '15997',
     },
@@ -238,11 +240,10 @@ export const onemeal = {
     },
   ],
 };
-
 export const oneDrink = {
   drinks: [
     {
-      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+      strDrinkThumb: drinkTimes,
       strDrink: 'GG',
       idDrink: '15997',
     }],
