@@ -7,9 +7,19 @@ function Footer() {
   return (
     <footer
       data-testid="footer"
+      style={ {
+        position: 'fixed',
+        display: 'flex',
+        justifyContent: 'space-between',
+        backgroundColor: '#41197F',
+        bottom: '0',
+        padding: 15,
+        width: '100%',
+      } }
     >
       <Link to="/meals">
         <img
+          className="mealsicon"
           data-testid="meals-bottom-btn"
           src={ mealsImg }
           alt="meals-icon"

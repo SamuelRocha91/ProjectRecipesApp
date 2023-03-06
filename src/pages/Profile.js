@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Profile() {
   const [user, setUser] = useState({ user: '', email: '' });
@@ -43,6 +44,7 @@ function Profile() {
           Logout
         </button>
       </Link>
+      <Footer />
     </main>
   );
 }
