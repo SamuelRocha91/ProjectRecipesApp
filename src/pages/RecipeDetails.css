@@ -1,0 +1,14 @@
+.cardRecipes {
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.cardIndividual {
+  width: 100%;
+}
+
+.btnFixed {
+  bottom: 0;
+  position: fixed;
+}

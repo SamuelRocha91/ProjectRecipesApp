@@ -7,11 +7,11 @@ import Header from '../components/Header';
 
 function Recipes({ location, history }) {
   const { foods, setFoods, categories,
-    setCategories, setFoodDetails, searchBarFetch,
+    setCategories, searchBarFetch,
     setSearchBarFetch } = useContext(RecipesContext);
   const [categorieSelected, setCategorieSelected] = useState(null); // estado que controla a última categoria a ter sido selecionada
 
-  if (foods.length !== 0 && searchBarFetch) {
+  if ((foods.meals || foods.drinks) && searchBarFetch) {
     // aqui o objetivo é filtrar se a requisição foi feita pelo searchBar e se retornou apenas uma receita
     if (location.pathname === '/drinks' && foods.drinks.length === 1) {
       setSearchBarFetch(false);
@@ -49,22 +49,14 @@ function Recipes({ location, history }) {
     setCategorieSelected(categorie);
   };
 
-  const detailRecipes = (id, index) => {
+  const detailRecipes = (id) => {
     // função que redireciona o usuário para a página de detalhes
     if (location.pathname === '/meals') {
-      const food = foods.meals[index];
-      setFoodDetails([{ type: 'meals',
-        id: food.id,
-        name: food.strMeal,
-        image: food.strMealThumb }]);
+      setFoods([]);
       history.push(`/meals/${id}`);
     } else {
-      const food = foods.drinks[index];
+      setFoods([]);
       history.push(`/drinks/${id}`);
-      setFoodDetails([{ type: 'drinks',
-        id: food.id,
-        name: food.strDrink,
-        image: food.strDrinkThumb }]);
     }
   };
 
@@ -93,7 +85,7 @@ function Recipes({ location, history }) {
         {foods && foods.meals && foods.meals.map((food, index) => (
           <div
             key={ `strMeal ${index}` }
-            onClick={ () => detailRecipes(food.id, index) }
+            onClick={ () => detailRecipes(food.id) }
             data-testid={ `${index}-recipe-card` }
             role="presentation"
           >
@@ -105,10 +97,11 @@ function Recipes({ location, history }) {
             <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
           </div>
         ))}
+
         {foods && foods.drinks && foods.drinks.map((food, index) => (
           <div
             key={ `strDrink ${food.id}` }
-            onClick={ () => detailRecipes(food.id, index) }
+            onClick={ () => detailRecipes(food.id) }
             role="presentation"
             data-testid={ `${index}-recipe-card` }
           >

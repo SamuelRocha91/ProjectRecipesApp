@@ -18,16 +18,6 @@ export const categoriesMeals = {
       strCategory: 'Pasta',
     }, {
       strCategory: 'Pork',
-    }, {
-      strCategory: 'Seafood',
-    }, {
-      strCategory: 'Side',
-    }, {
-      strCategory: 'Starter',
-    }, {
-      strCategory: 'Vegan',
-    }, {
-      strCategory: 'Vegetarian',
     },
   ],
 };
@@ -48,14 +38,6 @@ export const categoriesDrinks = {
       strCategory: 'Shot',
     }, {
       strCategory: 'Coffee / Tea',
-    }, {
-      strCategory: 'Homemade Liqueur',
-    }, {
-      strCategory: 'Punch / Party Drink',
-    }, {
-      strCategory: 'Beer',
-    }, {
-      strCategory: 'Soft Drink',
     },
   ],
 };
@@ -246,4 +228,22 @@ export const beef = {
       id: '52834',
     },
   ],
+};
+export const onemeal = {
+  meals: [
+    {
+      strMealThumb: 'https://www.themealdb.com/images/media/meals/58oia61564916529.jpg',
+      strMeal: 'Corba',
+      idMeal: '52977',
+    },
+  ],
+};
+
+export const oneDrink = {
+  drinks: [
+    {
+      strDrinkThumb: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+      strDrink: 'GG',
+      idDrink: '15997',
+    }],
 };

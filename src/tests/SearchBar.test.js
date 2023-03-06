@@ -62,7 +62,7 @@ describe('Verifica se o componente SearchBar...', () => {
       json: jest.fn().mockResolvedValue(meals),
     });
 
-    const { debug } = renderWithRouter(
+    renderWithRouter(
       <RecipesProvider>
         <AppProvider>
           <App />
@@ -84,7 +84,6 @@ describe('Verifica se o componente SearchBar...', () => {
 
     userEvent.type(screen.getByTestId(inputText), 'egg');
     userEvent.click(ingredient);
-    debug();
     userEvent.click(screen.getByTestId(btnSearch));
 
     expect(global.fetch).toHaveBeenLastCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=egg');

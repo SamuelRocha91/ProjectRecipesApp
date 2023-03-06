@@ -22,20 +22,20 @@ function SearchBar() {
   const newRequest = () => {
     if (search.radioButtons === 'Ingredient') {
       const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search.name}`;
-      setSearchBarFetch(true);
-      return fetchApi(url, food, setFoods);
+      fetchApi(url, food, setFoods);
+      return setSearchBarFetch(true);
     }
     if (search.radioButtons === 'Name') {
       const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search.name}`;
-      setSearchBarFetch(true);
-      return fetchApi(url, food, setFoods);
+      fetchApi(url, food, setFoods);
+      return setSearchBarFetch(true);
     }
     if (search.radioButtons === 'First' && search.name.length !== 1) {
       return global.alert('Your search must have only 1 (one) character');
     }
     const url = pathname === '/meals' ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${search.name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search.name}`;
-    setSearchBarFetch(true);
     fetchApi(url, food, setFoods);
+    setSearchBarFetch(true);
   };
 
   return (

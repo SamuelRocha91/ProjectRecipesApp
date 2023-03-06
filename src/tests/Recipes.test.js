@@ -1,10 +1,14 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { categoriesMeals, meals, beef, categoriesDrinks, drinks, shake } from '../helpers/mockData';
+import { categoriesMeals, meals, beef, categoriesDrinks, drinks, shake, onemeal, oneDrink } from '../helpers/mockData';
 import RecipesProvider from '../context/RecipesProvider';
 import { renderWithRouter } from '../helpers/renderWithRouter';
 import AppProvider from '../context/AppProvider';
+
+const btnSearch = 'exec-search-btn';
+const radioIngredient = 'ingredient-search-radio';
+const inputText = 'search-input';
 
 describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
   beforeEach(() => {
@@ -18,6 +22,38 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
   });
   afterEach(() => {
     global.fetch.mockRestore();
+  });
+
+  test('caso a requisição tenha sido feita pelo searchBar e o retorno da API tenha sido de apenas uma receita. verifica se há redirecionamento para a página de detalhes', async () => {
+    jest.spyOn(global, 'fetch');
+
+    const { history } = renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/meals'] },
+    );
+    const buttons = screen.getAllByRole('button');
+    userEvent.click(buttons[1]);
+
+    const ingredient = screen.getByTestId(radioIngredient);
+
+    global.fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(onemeal),
+    });
+
+    userEvent.type(screen.getByTestId(inputText), 'egg');
+    userEvent.click(ingredient);
+    const buttonSearch = screen.getByTestId(btnSearch);
+    userEvent.click(buttonSearch);
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=egg');
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual('/meals/52977');
+    });
   });
 
   test('renderiza doze receitas de almoços', async () => {
@@ -62,7 +98,7 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
   });
 
   test('Verfica se ao clicar no filtro "Beef" e no filtro "all" a lista de drinks muda', async () => {
-    const { debug } = renderWithRouter(
+    renderWithRouter(
       <RecipesProvider>
         <AppProvider>
           <App />
@@ -76,8 +112,6 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
 
     const btnBeef = screen.getByText('Beef');
 
-    debug();
-
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValue(beef),
@@ -85,7 +119,6 @@ describe('Verifica se o componente "Recipes" na rota "/meals"...', () => {
 
     userEvent.click(btnBeef);
     const beefMustard = await screen.findByText('Beef and Mustard Pie');
-    debug();
 
     expect(screen.queryByText('Timbits')).not.toBeInTheDocument();
     expect(beefMustard).toBeInTheDocument();
@@ -133,6 +166,38 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
   });
   afterEach(() => {
     global.fetch.mockRestore();
+  });
+
+  test('caso a requisição tenha sido feita pelo searchBar e o retorno da API tenha sido de apenas uma receita. verifica se há redirecionamento para a página de detalhes', async () => {
+    jest.spyOn(global, 'fetch');
+
+    const { history } = renderWithRouter(
+      <RecipesProvider>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </RecipesProvider>,
+      { initialEntries: ['/drinks'] },
+    );
+    const buttons = screen.getAllByRole('button');
+    userEvent.click(buttons[1]);
+
+    const ingredient = screen.getByTestId(radioIngredient);
+
+    global.fetch.mockResolvedValueOnce({
+      json: jest.fn().mockResolvedValue(oneDrink),
+    });
+
+    userEvent.type(screen.getByTestId(inputText), 'egg');
+    userEvent.click(ingredient);
+    const buttonSearch = screen.getByTestId(btnSearch);
+    userEvent.click(buttonSearch);
+
+    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=egg');
+
+    await waitFor(() => {
+      expect(history.location.pathname).toEqual('/drinks/15997');
+    });
   });
 
   test('Verfica se ao clicar no filtro "Shake" e no filtro "all" a lista de drinks muda', async () => {
@@ -190,10 +255,12 @@ describe('Verifica se o componente "Recipes" na rota "/drinks"...', () => {
     expect(history.location.pathname).toBe('/drinks/17222');
   });
 
-  test('renderiza doze receitas de almoços', async () => {
+  test('renderiza doze receitas de bebidas', async () => {
     const { history, debug } = renderWithRouter(
       <RecipesProvider>
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
       </RecipesProvider>,
       { initialEntries: ['/drinks'] },
     );
