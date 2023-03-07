@@ -114,6 +114,7 @@ function Recipes({ location, history }) {
             <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
           </div>
         ))}
+        <Footer />
       </div>
       <Footer />
     </>
