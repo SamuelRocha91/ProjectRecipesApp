@@ -10,6 +10,7 @@ const name = '0-horizontal-name';
 const share = '0-horizontal-share-btn';
 const image1 = 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg';
 const soup = 'soup vegetarian';
+const link = 'Link copied!';
 
 describe('Verifica se a rota "/donerecipes"', () => {
   const recipe = [{
@@ -115,12 +116,12 @@ describe('Verifica se a rota "/donerecipes"', () => {
 
     expect(shareBtn).toBeInTheDocument();
 
-    expect(screen.queryByText('Link copied!')).not.toBeInTheDocument();
+    expect(screen.queryByText(link)).not.toBeInTheDocument();
 
     userEvent.click(shareBtn);
 
     expect(mockedClipboard).toHaveBeenCalledTimes(1);
-    expect(screen.getByText('Link copied!')).toBeInTheDocument();
+    expect(screen.getByText(link)).toBeInTheDocument();
   });
   test.only('verifica o funcionamento dos filtros', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(recipeDouble));
@@ -171,7 +172,7 @@ describe('Verifica se a rota "/donerecipes"', () => {
 
     const shareBtn = screen.getByTestId(share);
 
-    expect(screen.queryByText('Link copied!')).not.toBeInTheDocument();
+    expect(screen.queryByText(link)).not.toBeInTheDocument();
 
     userEvent.click(shareBtn);
 
