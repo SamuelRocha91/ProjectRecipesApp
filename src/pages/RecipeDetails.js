@@ -51,7 +51,6 @@ function RecipeDetails({ match, history }) {
       setIsFavorite(alreadyExist(foodDetails, Favorite));
     } else {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
-        console.log(response);
         const food = response.drinks[0];
         const keys = Object.entries(food);
         const ingredients = keys
