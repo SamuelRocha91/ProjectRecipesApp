@@ -13,6 +13,7 @@ import { alreadyExist, deleteFavorite } from '../helpers/IsFavoriteLogic';
 
 const urlNumber = 32;
 const numberLimitIndex = 6;
+// reenvio
 
 function RecipeDetails({ match, history }) {
   // recupera o estado temporário com os dados da receita a se detalhar e a renderiza
