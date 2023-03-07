@@ -4,6 +4,7 @@ import { fetchCategories, fetchApi,
   fetchMealsByCategorie, fetchDrinksByCategorie } from '../services';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Recipes({ location, history }) {
   const { foods, setFoods, categories,
@@ -113,6 +114,7 @@ function Recipes({ location, history }) {
             <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
           </div>
         ))}
+        <Footer />
       </div>
     </>
   );

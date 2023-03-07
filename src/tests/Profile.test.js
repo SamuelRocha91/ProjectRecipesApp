@@ -38,6 +38,7 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 const setLocalStorage = (id, data) => {
   window.localStorage.setItem(id, JSON.stringify(data));
 };
+
 const user = 'user';
 
 const object = { email: 'anfitras@0413.com' };
