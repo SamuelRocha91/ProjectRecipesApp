@@ -8,6 +8,7 @@ import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import DoneRecipes from './pages/DoneRecipes';
 import RecipeDetails from './pages/RecipeDetails';
+import RecipeInProgres from './pages/RecipeInProgress';
 
 function App() {
   return (
@@ -32,8 +33,16 @@ function App() {
         render={ (props) => <DoneRecipes { ...props } /> }
       />
       <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-      <Route exact path="/meals/:id-da-receita/in-progress" />
-      <Route exact path="/drinks/:id-da-receita/in-progress" />
+      <Route
+        exact
+        path="/meals/:id/in-progress"
+        render={ (props) => <RecipeInProgres { ...props } /> }
+      />
+      <Route
+        exact
+        path="/drinks/:id/in-progress"
+        render={ (props) => <RecipeInProgres { ...props } /> }
+      />
     </Switch>
   );
 }
