@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../components/Header';
 
 function FavoriteRecipes() {
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   return (
     <div>
       <Header

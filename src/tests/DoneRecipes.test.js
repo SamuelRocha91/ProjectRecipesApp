@@ -77,7 +77,7 @@ describe('Verifica se a rota "/donerecipes"', () => {
     expect(screen.getByTestId(share)).toBeInTheDocument();
     expect(screen.getByTestId('0-vegetarian-horizontal-tag')).toBeInTheDocument();
   });
-  test('renderiza todos os elementos resgatados do localStorage pertinentes a receita de almoços', () => {
+  test('renderiza todos os elementos resgatados do localStorage pertinentes a receita de drinks', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(recipeDrink));
     renderWithRouter(
       <RecipesProvider>
@@ -93,7 +93,7 @@ describe('Verifica se a rota "/donerecipes"', () => {
     expect(screen.getByTestId('0-horizontal-done-date')).toBeInTheDocument();
     expect(screen.getByTestId(share)).toBeInTheDocument();
   });
-  test.only('Verifica se ao clicar no botão de compartilhar é renderizada uma confirmação da cópia na página', () => {
+  test('Verifica se ao clicar no botão de compartilhar é renderizada uma confirmação da cópia na página', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(recipeDrink));
     renderWithRouter(
       <RecipesProvider>
@@ -123,7 +123,7 @@ describe('Verifica se a rota "/donerecipes"', () => {
     expect(mockedClipboard).toHaveBeenCalledTimes(1);
     expect(screen.getByText(link)).toBeInTheDocument();
   });
-  test.only('verifica o funcionamento dos filtros', () => {
+  test('verifica o funcionamento dos filtros', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(recipeDouble));
     const { debug } = renderWithRouter(
       <RecipesProvider>
@@ -151,7 +151,7 @@ describe('Verifica se a rota "/donerecipes"', () => {
 
     expect(screen.queryByText('vodka')).not.toBeInTheDocument();
   });
-  test.only('Verifica se ao clicar no botão de compartilhar é renderizada uma confirmação da cópia na página', () => {
+  test('Verifica se ao clicar no botão de compartilhar é renderizada uma confirmação da cópia na página', () => {
     localStorage.setItem('doneRecipes', JSON.stringify(recipeDrink));
     renderWithRouter(
       <RecipesProvider>

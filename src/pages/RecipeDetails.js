@@ -10,6 +10,7 @@ import './RecipeDetails.css';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { alreadyExist, deleteFavorite } from '../helpers/IsFavoriteLogic';
+import { saveInProgressStorage } from '../helpers/saveStorage';
 
 const urlNumber = 32;
 const numberLimitIndex = 6;
@@ -39,7 +40,7 @@ function RecipeDetails({ match, history }) {
         const keys = Object.entries(food);
         const ingredients = keys
           .filter((key) => key[0].includes('strIngredient')
-          && key[1] !== null);
+          && key[1] !== null && key[1] !== '');
         const instructions = keys
           .filter((key) => key[0].includes('strMeasure')
           && key[1] !== null);
@@ -54,9 +55,11 @@ function RecipeDetails({ match, history }) {
         const food = response.drinks[0];
         const keys = Object.entries(food);
         const ingredients = keys
-          .filter((key) => key[0].includes('strIngredient') && key[1] !== null);
+          .filter((key) => key[0].includes('strIngredient')
+          && key[1] !== null && key[1] !== '');
         const instructions = keys
-          .filter((key) => key[0].includes('strMeasure') && key[1] !== 0);
+          .filter((key) => key[0].includes('strMeasure')
+          && key[1] !== 0 && key[1] !== '');
         setFoodDetails({ pathname, ...food, ingredients, instructions });
         setIsFavorite(alreadyExist(food.strDrink, Favorite));
       });
@@ -65,6 +68,7 @@ function RecipeDetails({ match, history }) {
   }, []);
 
   const redirectToRecipeInProgress = () => {
+    saveInProgressStorage(foodDetails);
     const { params: { id } } = match;
     if (pathname.includes('/meals')) {
       return history.push(`/meals/${id}/in-progress`);

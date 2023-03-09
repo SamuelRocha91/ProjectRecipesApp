@@ -109,7 +109,6 @@ describe('Verifica as funcionalidades da página de detalhes no "/meals"', () =>
     userEvent.click(imgFavorite);
 
     expect(imgFavorite).toHaveProperty('src', blackHeart);
-    console.log(JSON.parse(localStorage.getItem(idi)));
     expect(JSON.parse(localStorage.getItem(idi))).toEqual(finalObject);
   });
   test('Verifica se ao clicar no botão de compartilhar é renderizada uma confirmação da cópia na página', async () => {

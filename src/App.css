@@ -29,6 +29,14 @@
 }
 */
 
+.test {
+  background-color: red;
+}
+
+.rasurado {
+  text-decoration: line-through solid black;
+}
+
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
