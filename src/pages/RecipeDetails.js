@@ -36,8 +36,10 @@ function RecipeDetails({ match, history }) {
     const { params: { id } } = match;
     if (pathname.includes('/meals')) {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
+        console.log(response);
         const food = response.meals[0];
         const keys = Object.entries(food);
+        console.log(keys);
         const ingredients = keys
           .filter((key) => key[0].includes('strIngredient')
           && key[1] !== null && key[1] !== '');

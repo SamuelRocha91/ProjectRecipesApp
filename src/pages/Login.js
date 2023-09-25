@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Login.css';
+import tomate from '../images/tomate.png';
+import elipse from '../images/Ellipse 1.png';
+import coracao from '../images/coracao.png';
+import vetor from '../images/Vector3.png';
+import newVector from '../images/vetor2.png';
+import tampa from '../images/Vector.png';
+import stroke from '../images/stroke.png';
+import retangle from '../images/Rectangle 2.png';
+import recipes from '../images/Recipes.png';
+import app from '../images/App.png';
 
 function Login() {
   const loginState = {
@@ -44,11 +55,24 @@ function Login() {
 
   return (
     <section>
+      <div id="bg">
+        <img id="coracao" alt="coração" src={ coracao } />
+        <img id="vetorone" alt="vetor1" src={ vetor } />
+        <img id="vetortwo" alt="vetor2" src={ newVector } />
+        <img id="vetor" alt="vetor" src={ tampa } />
+        <img id="stroke" alt="stroke" src={ stroke } />
+        <img src={ elipse } id="elipse" alt="elipse" />
+        <img src={ tomate } id="tomate" alt="tomates" />
+        <img src={ retangle } id="retangle" alt="retangle" />
+        <img src={ recipes } id="recipes" alt="recipes" />
+        <img src={ app } id="app" alt="app" />
+      </div>
       <div>
         <h1>Login</h1>
       </div>
       <form>
         <input
+          id="inputone"
           type="text"
           name="email"
           data-testid="email-input"
@@ -56,6 +80,7 @@ function Login() {
           onChange={ handleChange }
         />
         <input
+          id="inputwo"
           type="password"
           name="password"
           data-testid="password-input"

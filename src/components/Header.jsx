@@ -5,6 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchImg from '../images/searchIcon.svg';
 import appContext from '../context/AppContext';
 import SearchBar from './SearchBar';
+import './header.css';
 
 function Header({ title, enableSearchIcon = true }) {
   const {
