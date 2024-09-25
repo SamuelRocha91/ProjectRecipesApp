@@ -20,23 +20,26 @@ function Header({ title, enableSearchIcon = true }) {
   }, [setSearchIcon, enableSearchIcon]);
 
   return (
-    <header>
-      <h1>{ title }</h1>
-      <Link className="btn-header" to="/profile">
-        <img src={ profileIcon } alt="  ´icone de perfil" />
-      </Link>
-
-      { searchIcon
-        && (
-          <button type="button" onClick={ () => setSearchBox(!searchBox) }>
-            <img
-              src={ searchImg }
-              alt="search-icon"
-            />
-          </button>
-        )}
-      { searchBox
-       && <SearchBar /> }
+    <header className="header-content">
+      <div className="title-component">
+        <h1>{ title }</h1>
+      </div>
+      <div>
+        <Link className="btn-header" to="/profile">
+          <img src={ profileIcon } alt="icone de perfil" />
+        </Link>
+        { searchIcon
+          && (
+            <button type="button" onClick={ () => setSearchBox(!searchBox) }>
+              <img
+                src={ searchImg }
+                alt="search-icon"
+              />
+            </button>
+          )}
+        { searchBox
+         && <SearchBar /> }
+      </div>
     </header>
   );
 }

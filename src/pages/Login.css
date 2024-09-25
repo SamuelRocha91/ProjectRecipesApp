@@ -28,22 +28,6 @@ section {
   width: 148.5px;
 }
 
-h1 {
-  background-color: white;
-  color: #41197f;
-  font-size: 20px;
-  font-style: italic;
-  font-weight: 500;
-  height: 21px;
-  left: 89px;
-  letter-spacing: 0.165em;
-  line-height: 20px;
-  position: absolute;
-  text-align: center;
-  text-transform: uppercase;
-  top: 524px;
-  width: 182px;
-}
 
 #inputone {
   border: 0.5px solid #41197f;
@@ -67,15 +51,6 @@ h1 {
   width: 276px;
 }
 
-button {
-  background: #fcc436;
-  border-radius: 5px;
-  height: 40px;
-  left: 42px;
-  position: absolute;
-  top: 662px;
-  width: 276px;
-}
 
 #coracao {
   background-image: #e44343;

@@ -25,12 +25,12 @@
   padding: 12px;
   text-align: center;
   text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition: background-color 0.3s ease , transform 0.2s ease;
   width: 100%;
 }
 
 .a-react:hover {
-  background-color: #ffdd44;
+  background-color: #fd4;
   transform: scale(1.05);
 }
 
