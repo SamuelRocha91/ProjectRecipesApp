@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './Profile.css';
 
 function Profile() {
   const [user, setUser] = useState({ user: '', email: '' });
@@ -11,38 +12,31 @@ function Profile() {
     setUser(userStorage);
   }, []);
 
-  const logout = () => { localStorage.clear(); };
+  const logout = () => localStorage.clear();
+  useEffect(() => {
+    console.log('Componente montado');
+
+    // Função de limpeza (executada ao desmontar o componente)
+    return () => {
+      logout();
+    };
+  }, []);
+
   return (
-    <main>
+    <main className="main-profile">
       <Header
         title="Profile"
         enableSearchIcon={ false }
       />
-      <p data-testid="profile-email">{user?.email}</p>
-      <Link to="/done-recipes">
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-        >
-          Done Recipes
-        </button>
+      <p className="profile-p">{user?.email}</p>
+      <Link className="a-react" to="/done-recipes">
+        Done Recipes
       </Link>
-      <Link to="/favorite-recipes">
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-        >
-          Favorite Recipes
-        </button>
+      <Link className="a-react" to="/favorite-recipes">
+        Favorite Recipes
       </Link>
-      <Link to="/">
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => logout() }
-        >
-          Logout
-        </button>
+      <Link className="a-react" to="/">
+        Logout
       </Link>
       <Footer />
     </main>

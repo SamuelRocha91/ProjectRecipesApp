@@ -21,17 +21,9 @@ function Header({ title, enableSearchIcon = true }) {
 
   return (
     <header>
-      <h1 data-testid="page-title">{ title }</h1>
-      <Link to="/profile">
-        <button
-          type="button"
-        >
-          <img
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="profile-icon"
-          />
-        </button>
+      <h1>{ title }</h1>
+      <Link className="btn-header" to="/profile">
+        <img src={ profileIcon } alt="  ´icone de perfil" />
       </Link>
 
       { searchIcon
@@ -40,7 +32,6 @@ function Header({ title, enableSearchIcon = true }) {
             <img
               src={ searchImg }
               alt="search-icon"
-              data-testid="search-top-btn"
             />
           </button>
         )}

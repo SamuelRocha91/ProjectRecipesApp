@@ -1,0 +1,65 @@
+.main-profile {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-top: 52px;
+  padding: 16px;
+}
+
+.profile-p {
+  color: #333;
+  font-size: 18px;
+  margin: 16px 0;
+}
+
+.a-react {
+  background-color: #fcdc36;
+  border-radius: 8px;
+  color: #333;
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px 0;
+  max-width: 300px;
+  padding: 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.a-react:hover {
+  background-color: #ffdd44;
+  transform: scale(1.05);
+}
+
+.a-react:active {
+  transform: scale(0.98);
+}
+
+.a-react:last-of-type {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.a-react:last-of-type:hover {
+  background-color: #ff7f7f;
+}
+
+
+@media ( max-width : 480px ) {
+
+  .main-profile {
+    padding: 12px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .a-react {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
