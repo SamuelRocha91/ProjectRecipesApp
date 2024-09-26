@@ -9,14 +9,23 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SearchBar from '../components/SearchBar';
 import './Recipes.css';
+import {
+  URL_ALL_DRINKS,
+  URL_ALL_FOODS,
+  URL_DRINK_BY_CATEGORY,
+  URL_FOOD_BY_CATEGORY,
+} from '../utils/constants';
 
 function Recipes({ location, history }) {
-  const { foods, setFoods, categories,
-    setCategories, searchBarFetch,
-    setSearchBarFetch } = useContext(RecipesContext);
   const {
-    searchBox,
-  } = useContext(appContext);
+    foods,
+    setFoods,
+    categories,
+    setCategories,
+    searchBarFetch,
+    setSearchBarFetch,
+  } = useContext(RecipesContext);
+  const { searchBox } = useContext(appContext);
   const [categorieSelected, setCategorieSelected] = useState(null); // estado que controla a última categoria a ter sido selecionada
 
   if ((foods.meals || foods.drinks) && searchBarFetch) {
@@ -36,11 +45,11 @@ function Recipes({ location, history }) {
     // a função recebe a url, a rota e a função que vai manipular os dados retornados
 
     if (location.pathname === '/meals') {
-      fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
-      fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list', 'meals', setCategories);
+      fetchApi(URL_ALL_FOODS, 'meals', setFoods);
+      fetchCategories(URL_FOOD_BY_CATEGORY, setCategories);
     } else {
-      fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks', setFoods);
-      fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', 'drinks', setCategories);
+      fetchApi(URL_ALL_DRINKS, 'drinks', setFoods);
+      fetchCategories(URL_DRINK_BY_CATEGORY, 'drinks', setCategories);
     }
   }, [location.pathname]);
 

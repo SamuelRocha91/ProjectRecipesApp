@@ -11,6 +11,7 @@ import stroke from '../images/stroke.png';
 import retangle from '../images/Rectangle 2.png';
 import recipes from '../images/Recipes.png';
 import app from '../images/App.png';
+import { USER } from '../utils/constants';
 
 function Login() {
   const loginState = {
@@ -50,7 +51,7 @@ function Login() {
       email: login.email,
     };
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem(USER, JSON.stringify(user));
   };
 
   return (

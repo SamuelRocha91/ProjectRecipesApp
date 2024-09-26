@@ -3,20 +3,21 @@ import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import blackHeart from '../images/blackHeartIcon.svg';
+import { URL_BASE, FAVORITE_RECIPES } from '../utils/constants';
 import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const favorites = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
   const [, setRecipeStorage] = useState();
   const [linkCopied, setLinkCopied] = useState(false);
   const [type, setType] = useState('All');
   const shareLink = (keys) => {
-    clipboardCopy(`http://localhost:3000/${keys.type}s/${keys.id}`);
+    clipboardCopy(`U${URL_BASE}${keys.type}s/${keys.id}`);
     setLinkCopied(!linkCopied);
   };
 
   const unfavorite = (target) => {
-    const teste = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const teste = JSON.parse(localStorage.getItem(FAVORITE_RECIPES));
     const resultFilter = teste.filter((element, index) => index !== target);
     localStorage.setItem('favoriteRecipes', JSON.stringify(resultFilter));
     setRecipeStorage(resultFilter);
@@ -29,7 +30,6 @@ function FavoriteRecipes() {
         enableSearchIcon={ false }
       />
       <div className="favorites-container">
-
         <span>Favorites</span>
         <button
           type="button"

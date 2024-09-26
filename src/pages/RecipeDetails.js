@@ -12,6 +12,15 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { alreadyExist, deleteFavorite } from '../helpers/IsFavoriteLogic';
 import { saveInProgressStorage } from '../helpers/saveStorage';
 import './MainDetails.css';
+import {
+  DONE_RECIPES,
+  FAVORITE_RECIPES,
+  IN_PROGRESS,
+  URL_ALL_DRINKS,
+  URL_ALL_FOODS,
+  URL_DETAIL_DRINK,
+  URL_DETAIL_FOOD,
+} from '../utils/constants';
 
 const urlNumber = 32;
 const numberLimitIndex = 6;
@@ -22,9 +31,9 @@ function RecipeDetails({ match, history }) {
   // Desenvolva a tela de modo que contenha uma imagem da receita, o título, a categoria em caso de comidas e se é ou não alcoólico em caso de bebidas, uma lista de ingredientes seguidos pelas quantidades, instruções, um vídeo do youtube incorporado e recomendações
   // { strMealThumb, strMeal, strCategory, strIngredient{1até máx 20}, strMeasure{1até máx 20}, strInstructions, strYoutube}
   // { strDrinkThumb, strDrink, strCategory, strAlcoholic, strIngredient1(ate o 15 no maximo, strMeasure1, strInstructions)}
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
-  const Favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const doneRecipes = JSON.parse(localStorage.getItem(DONE_RECIPES)) || [];
+  const inProgressRecipes = JSON.parse(localStorage.getItem(IN_PROGRESS)) || [];
+  const Favorite = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
 
   const { foodDetails, setFoodDetails, setFoods, foods } = useContext(RecipesContext);
   const [linkCopied, setLinkCopied] = useState(false);
@@ -36,7 +45,7 @@ function RecipeDetails({ match, history }) {
   useEffect(() => {
     const { params: { id } } = match;
     if (pathname.includes('/meals')) {
-      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
+      fetch(`${URL_DETAIL_FOOD}${id}`).then((data) => data.json()).then((response) => {
         const food = response.meals[0];
         const keys = Object.entries(food);
         const ingredients = keys
@@ -49,10 +58,10 @@ function RecipeDetails({ match, history }) {
         setIsFavorite(alreadyExist(food.strMeal, Favorite));
       });
 
-      fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks', setFoods);
+      fetchApi(URL_ALL_DRINKS, 'drinks', setFoods);
       setIsFavorite(alreadyExist(foodDetails, Favorite));
     } else {
-      fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
+      fetch(`${URL_DETAIL_DRINK}${id}`).then((data) => data.json()).then((response) => {
         const food = response.drinks[0];
         const keys = Object.entries(food);
         const ingredients = keys
@@ -64,7 +73,7 @@ function RecipeDetails({ match, history }) {
         setFoodDetails({ pathname, ...food, ingredients, instructions });
         setIsFavorite(alreadyExist(food.strDrink, Favorite));
       });
-      fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
+      fetchApi(URL_ALL_FOODS, 'meals', setFoods);
     }
   }, []);
 
@@ -78,7 +87,7 @@ function RecipeDetails({ match, history }) {
   };
 
   const favoriteRecipes = () => {
-    const recipesFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const recipesFavorite = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
     if (isFavorite) {
       deleteFavorite(foodDetails, Favorite);
       setIsFavorite(false);
@@ -93,7 +102,7 @@ function RecipeDetails({ match, history }) {
         image: foodDetails.strMealThumb || foodDetails.strDrinkThumb,
       };
       recipesFavorite.push(newFavorite);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFavorite));
+      localStorage.setItem(FAVORITE_RECIPES, JSON.stringify(recipesFavorite));
       setIsFavorite(true);
     }
   };

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { USER } from '../utils/constants';
 import './Profile.css';
 
 function Profile() {
@@ -10,14 +11,13 @@ function Profile() {
   const location = useLocation();
 
   useEffect(() => {
-    const userStorage = JSON.parse(localStorage.getItem('user'));
+    const userStorage = JSON.parse(localStorage.getItem(USER));
     setUser(userStorage);
   }, []);
 
   const logout = () => localStorage.clear();
   useEffect(() => {
     console.log('Componente montado');
-
     return () => {
       if (location.pathname === '/') {
         logout();

@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
+import { URL_BASE } from '../utils/constants';
 
 function DoneRecipes() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -14,7 +16,7 @@ function DoneRecipes() {
   }, []);
 
   const shareLink = (id, type) => {
-    clipboardCopy(`http://localhost:3000/${type}s/${id}`);
+    clipboardCopy(`${URL_BASE}${type}s/${id}`);
     setLinkCopied(!linkCopied);
   };
 
@@ -35,7 +37,6 @@ function DoneRecipes() {
         data-testid="filter-by-all-btn"
       >
         All
-
       </button>
       <button
         onClick={ () => filterDoneRecipes('meal') }
@@ -57,39 +58,30 @@ function DoneRecipes() {
           return (
             <>
               <Link to={ `${recipe.type}s/${recipe.id}` }>
-                <h2
-                  data-testid={ `${index}-horizontal-name` }
-                >
+                <h2>
                   { recipe.name }
-
                 </h2>
                 <img
                   style={ { width: '180px' } }
                   src={ recipe.image }
                   alt={ recipe.name }
-                  data-testid={ `${index}-horizontal-image` }
                 />
               </Link>
-              <p data-testid={ `${index}-horizontal-top-text` }>
+              <p>
                 { `${recipe.nationality} - ${recipe.category}` }
               </p>
-              <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate}</p>
+              <p>{ recipe.doneDate}</p>
               <button onClick={ () => shareLink(recipe.id, recipe.type) }>
                 <img
                   src={ shareIcon }
                   alt={ recipe.name }
-                  data-testid={ `${index}-horizontal-share-btn` }
                 />
               </button>
               {recipe.tags.map((tag, indice) => {
                 if (indice < 2) {
                   return (
-                    <p
-                      key={ `${tag}${index}` }
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                    >
+                    <p key={ `${tag}${index}` }>
                       { tag }
-
                     </p>
                   );
                 }
@@ -101,31 +93,27 @@ function DoneRecipes() {
         return (
           <>
             <a href={ `${recipe.type}s/${recipe.id}` }>
-
-              <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
+              <h2>{ recipe.name }</h2>
               <img
                 src={ recipe.image }
                 alt={ recipe.name }
                 data-testid={ `${index}-horizontal-image` }
               />
             </a>
-
-            <p data-testid={ `${index}-horizontal-top-text` }>
+            <p>
               { recipe.alcoholicOrNot }
               {' '}
             </p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
+            <p>{ recipe.doneDate }</p>
             <button onClick={ () => shareLink() }>
               <img
                 src={ shareIcon }
                 alt={ recipe.name }
-                data-testid={ `${index}-horizontal-share-btn` }
               />
             </button>
           </>
         );
       })}
-
     </div>
   );
 }
