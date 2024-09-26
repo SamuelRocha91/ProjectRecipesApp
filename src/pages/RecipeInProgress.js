@@ -6,6 +6,7 @@ import { saveInProgressStorage } from '../helpers/saveStorage';
 import { deleteFavorite, alreadyExist } from '../helpers/IsFavoriteLogic';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './RecipesInProgress.css';
 
 function RecipeInProgres({ match, history }) {
   const { location: { pathname } } = history;
@@ -129,28 +130,25 @@ function RecipeInProgres({ match, history }) {
     history.push('/done-recipes');
   };
   return (
-    <>
+    <div>
       {foodInProgress && (
-        <>
-          {' '}
+        <div className="recipe-in-progress">
           <h2 data-testid="recipe-title">
-            {' '}
             {foodInProgress.strMeal || foodInProgress.strDrink}
           </h2>
           <img
             src={ foodInProgress.strMealThumb || foodInProgress.strDrinkThumb }
             alt=""
-            data-testid="recipe-photo"
           />
-          <p data-testid="recipe-category">
-            {foodInProgress.strAlcoholic
-             || foodInProgress.strCategory}
+          <p>
+            {foodInProgress.strAlcoholic || foodInProgress.strCategory}
           </p>
-          <p data-testid="instructions">{foodInProgress.strInstructions}</p>
+          <p data-testid="instructions" className="instructions">
+            {foodInProgress.strInstructions}
+          </p>
           {foodInProgress.ingredients.map((ingredient, index) => (
             <label
               key={ `${index} - ${ingredient}` }
-              data-testid={ `${index}-ingredient-step` }
               className={ verifyChecked(ingredient[1]) ? 'rasurado' : '' }
             >
               <input
@@ -158,39 +156,28 @@ function RecipeInProgres({ match, history }) {
                 checked={ verifyChecked(ingredient[1]) }
                 onChange={ () => setNewStorage(ingredient[1]) }
               />
-              { ingredient[1] }
+              {ingredient[1]}
             </label>
           ))}
-        </>)}
-      <button
-        onClick={ () => shareLink() }
-        data-testid="share-btn"
-      >
-        compartilhar
-
-      </button>
-      {linkCopied && <p>Link copied!</p>}
-
-      <button
-        onClick={ () => favoriteRecipes() }
-      >
-        <img
-          src={ isFavorite
-            ? blackHeartIcon : whiteHeartIcon }
-          data-testid="favorite-btn"
-          alt="favoriteIcon"
-        />
-
-      </button>
-      <button
-        disabled={ listIngredients[route] && listIngredients[route][id].length !== 0 }
-        onClick={ () => redirectToRecipeDone() }
-        data-testid="finish-recipe-btn"
-      >
-        finalizar receita
-
-      </button>
-    </>
+          <button onClick={ () => shareLink() }>
+            compartilhar
+          </button>
+          {linkCopied && <p>Link copied!</p>}
+          <button onClick={ () => favoriteRecipes() }>
+            <img
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favoriteIcon"
+            />
+          </button>
+          <button
+            disabled={ listIngredients[route] && listIngredients[route][id].length !== 0 }
+            onClick={ () => redirectToRecipeDone() }
+          >
+            finalizar receita
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

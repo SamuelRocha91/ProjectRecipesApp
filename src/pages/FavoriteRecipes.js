@@ -29,21 +29,18 @@ function FavoriteRecipes() {
       <span>Favorites</span>
       <button
         type="button"
-        data-testid="filter-by-all-btn"
         onClick={ () => { setType('All'); } }
       >
         All
       </button>
       <button
         type="button"
-        data-testid="filter-by-meal-btn"
         onClick={ () => { setType('meal'); } }
       >
         Foods
       </button>
       <button
         type="button"
-        data-testid="filter-by-drink-btn"
         onClick={ () => { setType('drink'); } }
       >
         Drinks
@@ -55,14 +52,11 @@ function FavoriteRecipes() {
               <img
                 src={ keys.image }
                 alt="Recipe Pic"
-                data-testid={ `${index}-horizontal-image` }
                 style={ { width: '180px' } }
               />
             </Link>
             <Link to={ `/${keys.type}s/${keys.id}` }>
-              <h1
-                data-testid={ `${index}-horizontal-name` }
-              >
+              <h1>
                 {keys.name}
               </h1>
             </Link>
@@ -83,7 +77,6 @@ function FavoriteRecipes() {
             {linkCopied && <p>Link copied!</p>}
             <button
               type="button"
-              data-testid={ `${index}-horizontal-favorite-btn` }
               src="../images/blackHeartIcon.svg"
               onClick={ () => unfavorite(index) }
             >
