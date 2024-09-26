@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import blackHeart from '../images/blackHeartIcon.svg';
 import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
@@ -80,11 +81,10 @@ function FavoriteRecipes() {
               {linkCopied && <p>Link copied!</p>}
               <button
                 type="button"
-                src="../images/blackHeartIcon.svg"
                 onClick={ () => unfavorite(index) }
               >
                 <img
-                  src="../images/blackHeartIcon.svg"
+                  src={ blackHeart }
                   alt="unfavoriteIcon"
                 />
               </button>
