@@ -1,3 +1,5 @@
+import { URL_ALL_DRINKS, URL_ALL_FOODS } from '../utils/constants';
+
 const maxRec = 12;
 const sorry = 'Sorry, we haven';
 
@@ -43,7 +45,7 @@ export const fetchApi = (url, food, setFoods) => {
 
 export const fetchMealsByCategorie = (categorie, setFoods, selectCategorie) => {
   if (categorie === 'all' || categorie === selectCategorie) {
-    return fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
+    return fetchApi(URL_ALL_FOODS, 'meals', setFoods);
   }
   fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${categorie}`).then((data) => data.json()).then((response) => {
     const meals = response.meals
@@ -55,7 +57,7 @@ export const fetchMealsByCategorie = (categorie, setFoods, selectCategorie) => {
 
 export const fetchDrinksByCategorie = (categorie, setFoods, selectCategorie) => {
   if (categorie === 'all' || categorie === selectCategorie) {
-    return fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks', setFoods);
+    return fetchApi(URL_ALL_DRINKS, 'drinks', setFoods);
   }
   fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categorie}`).then((data) => data.json()).then((response) => {
     const drinks = response.drinks

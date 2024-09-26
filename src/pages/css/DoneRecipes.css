@@ -1,0 +1,46 @@
+.done-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100px;
+  margin-top: 52px;
+  width: 100vw;
+}
+
+.btn-categories-main {
+  background-color: #a8d5ba;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.search-img-btn {
+  border: 2px red;
+  height: 60px;
+}
+
+.card-done {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: max-content;
+  margin-top: 5px;
+  width: 100vw;
+}
+
+.card-done a img {
+  height: 40vh;
+  width: 100vw;
+}
+
+.card-done a {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-done p {
+  font-weight: 700;
+}

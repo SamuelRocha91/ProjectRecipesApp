@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './css/Login.css';
 import tomate from '../images/tomate.png';
 import elipse from '../images/Ellipse 1.png';
 import coracao from '../images/coracao.png';
@@ -11,6 +11,7 @@ import stroke from '../images/stroke.png';
 import retangle from '../images/Rectangle 2.png';
 import recipes from '../images/Recipes.png';
 import app from '../images/App.png';
+import { USER } from '../utils/constants';
 
 function Login() {
   const loginState = {
@@ -50,47 +51,45 @@ function Login() {
       email: login.email,
     };
 
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem(USER, JSON.stringify(user));
   };
 
   return (
-    <section>
+    <section className="section-login">
       <div id="bg">
-        <img id="coracao" alt="coração" src={ coracao } />
-        <img id="vetorone" alt="vetor1" src={ vetor } />
-        <img id="vetortwo" alt="vetor2" src={ newVector } />
-        <img id="vetor" alt="vetor" src={ tampa } />
-        <img id="stroke" alt="stroke" src={ stroke } />
-        <img src={ elipse } id="elipse" alt="elipse" />
-        <img src={ tomate } id="tomate" alt="tomates" />
-        <img src={ retangle } id="retangle" alt="retangle" />
-        <img src={ recipes } id="recipes" alt="recipes" />
-        <img src={ app } id="app" alt="app" />
+        <img className="coracao" alt="coração" src={ coracao } />
+        <img className="vetorone" alt="vetor1" src={ vetor } />
+        <img className="vetortwo" alt="vetor2" src={ newVector } />
+        <img className="vetor" alt="vetor" src={ tampa } />
+        <img className="stroke" alt="stroke" src={ stroke } />
+        <img src={ elipse } className="elipse" alt="elipse" />
+        <img src={ tomate } className="tomate" alt="tomates" />
+        <img src={ retangle } className="retangle" alt="retangle" />
+        <img src={ recipes } className="recipes" alt="recipes" />
+        <img src={ app } className="app" alt="app" />
       </div>
-      <div>
+      <div className="title-h1">
         <h1>Login</h1>
       </div>
       <form>
         <input
-          id="inputone"
+          className="inputone"
           type="text"
           name="email"
-          data-testid="email-input"
           placeholder="Email"
           onChange={ handleChange }
         />
         <input
-          id="inputwo"
+          className="inputwo"
           type="password"
           name="password"
-          data-testid="password-input"
           placeholder="Senha"
           onChange={ handleChange }
         />
         <Link to="/meals">
           <button
+            className="btn-login"
             type="button"
-            data-testid="login-submit-btn"
             disabled={ isDisabled }
             onClick={ handleSubmit }
           >

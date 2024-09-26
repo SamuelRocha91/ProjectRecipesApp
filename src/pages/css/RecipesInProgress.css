@@ -1,0 +1,83 @@
+/* stylelint-disable selector-no-qualifying-type */
+
+/* stylelint-disable selector-attribute-operator-space-before */
+
+/* stylelint-disable selector-attribute-operator-space-after */
+
+/* stylelint-disable selector-attribute-brackets-space-inside */
+.recipe-in-progress {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  max-width: 600px;
+  padding: 20px;
+}
+
+.recipe-in-progress h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.recipe-in-progress img {
+  border-radius: 8px;
+  height: auto;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.recipe-in-progress p {
+  color: #555;
+  font-size: 18px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.recipe-in-progress .instructions {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.recipe-in-progress label {
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.recipe-in-progress input[type='checkbox'] {
+  margin-right: 10px;
+}
+
+.rasurado {
+  color: #888;
+  text-decoration: line-through;
+}
+
+.recipe-in-progress button {
+  background-color: #064921;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px 0;
+  padding: 10px;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.recipe-in-progress button:hover {
+  background-color: #95c2a1;
+}
+
+.recipe-in-progress button img {
+  height: 20px;
+  margin-right: 5px;
+  width: 20px;
+}

@@ -1,48 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/jsx/Header';
+import Footer from '../components/jsx/Footer';
+import { USER } from '../utils/constants';
+import './css/Profile.css';
 
 function Profile() {
   const [user, setUser] = useState({ user: '', email: '' });
+  const location = useLocation();
 
   useEffect(() => {
-    const userStorage = JSON.parse(localStorage.getItem('user'));
+    const userStorage = JSON.parse(localStorage.getItem(USER));
     setUser(userStorage);
   }, []);
 
-  const logout = () => { localStorage.clear(); };
+  const logout = () => localStorage.clear();
+  useEffect(() => {
+    console.log('Componente montado');
+    return () => {
+      if (location.pathname === '/') {
+        logout();
+      }
+    };
+  }, []);
+
   return (
-    <main>
+    <main className="main-profile">
       <Header
         title="Profile"
         enableSearchIcon={ false }
       />
-      <p data-testid="profile-email">{user?.email}</p>
-      <Link to="/done-recipes">
-        <button
-          type="button"
-          data-testid="profile-done-btn"
-        >
-          Done Recipes
-        </button>
+      <p className="profile-p">{user?.email}</p>
+      <Link className="a-react" to="/done-recipes">
+        Done Recipes
       </Link>
-      <Link to="/favorite-recipes">
-        <button
-          type="button"
-          data-testid="profile-favorite-btn"
-        >
-          Favorite Recipes
-        </button>
+      <Link className="a-react" to="/favorite-recipes">
+        Favorite Recipes
       </Link>
-      <Link to="/">
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-          onClick={ () => logout() }
-        >
-          Logout
-        </button>
+      <Link className="a-react" to="/">
+        Logout
       </Link>
       <Footer />
     </main>

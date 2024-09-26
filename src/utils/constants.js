@@ -1,0 +1,14 @@
+export const URL_BASE = 'http://localhost:3000/';
+export const FAVORITE_RECIPES = 'favoriteRecipes';
+export const USER = 'user';
+export const DONE_RECIPES = 'doneRecipes';
+export const IN_PROGRESS = 'inProgress';
+export const IN_PROGRESS_RECIPES = 'inProgressRecipes';
+export const URL_DETAIL_FOOD = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+export const URL_DETAIL_DRINK = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+export const URL_ALL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+export const URL_ALL_FOODS = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+export const URL_FOOD_BY_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+export const URL_DRINK_BY_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+export const URL_FOOD_BY_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+export const URL_DRINK_BY_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';

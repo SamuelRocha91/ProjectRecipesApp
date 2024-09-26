@@ -6,14 +6,25 @@ import { saveInProgressStorage } from '../helpers/saveStorage';
 import { deleteFavorite, alreadyExist } from '../helpers/IsFavoriteLogic';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import './css/RecipesInProgress.css';
+import {
+  DONE_RECIPES,
+  FAVORITE_RECIPES,
+  IN_PROGRESS_RECIPES,
+  URL_BASE,
+  URL_DETAIL_DRINK,
+  URL_DETAIL_FOOD,
+} from '../utils/constants';
+import Header from '../components/jsx/Header';
 
 function RecipeInProgres({ match, history }) {
   const { location: { pathname } } = history;
   const { params: { id } } = match;
 
   const route = pathname.includes('/meals') ? 'meals' : 'drinks';
-  const Favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const Favorite = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
 
+  console.log('aqui');
   const [foodInProgress, setfoodInProgress] = useState(undefined);
   const [listIngredients, setListIngredients] = useState([]);
   const [isFavorite, setIsFavorite] = useState();
@@ -21,7 +32,7 @@ function RecipeInProgres({ match, history }) {
 
   useEffect(() => {
     if (pathname.includes('/meals')) {
-      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
+      fetch(`${URL_DETAIL_FOOD}${id}`).then((data) => data.json()).then((response) => {
         const food = response.meals[0];
         const keys = Object.entries(food);
         const ingredients = keys
@@ -31,15 +42,15 @@ function RecipeInProgres({ match, history }) {
           .filter((key) => key[0].includes('strMeasure')
           && key[1] !== null);
         setfoodInProgress({ pathname, ...food, ingredients, instructions });
-        if (!(JSON.parse(localStorage.getItem('inProgressRecipes')))) {
+        if (!(JSON.parse(localStorage.getItem(IN_PROGRESS_RECIPES)))) {
           saveInProgressStorage({ pathname, ...food, ingredients, instructions });
         }
-        const Storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+        const Storage = JSON.parse(localStorage.getItem(IN_PROGRESS_RECIPES)) || [];
         setListIngredients(Storage);
         setIsFavorite(alreadyExist(food.strMeal, Favorite));
       });
     } else {
-      fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
+      fetch(`${URL_DETAIL_DRINK}${id}`).then((data) => data.json()).then((response) => {
         const food = response.drinks[0];
         const keys = Object.entries(food);
         const ingredients = keys
@@ -48,10 +59,10 @@ function RecipeInProgres({ match, history }) {
         const instructions = keys
           .filter((key) => key[0].includes('strMeasure') && key[1] !== 0);
         setfoodInProgress({ pathname, ...food, ingredients, instructions });
-        if (!(JSON.parse(localStorage.getItem('inProgressRecipes')))) {
+        if (!(JSON.parse(localStorage.getItem(IN_PROGRESS_RECIPES)))) {
           saveInProgressStorage({ pathname, ...food, ingredients, instructions });
         }
-        const Storage = JSON.parse(localStorage.getItem('inProgressRecipes')) || [];
+        const Storage = JSON.parse(localStorage.getItem(IN_PROGRESS_RECIPES)) || [];
         setListIngredients(Storage);
         setIsFavorite(alreadyExist(food.strDrink, Favorite));
       });
@@ -59,7 +70,7 @@ function RecipeInProgres({ match, history }) {
   }, []);
 
   const setNewStorage = (ingredient) => {
-    const Storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const Storage = JSON.parse(localStorage.getItem(IN_PROGRESS_RECIPES));
     const identifier = foodInProgress.idMeal || foodInProgress.idDrink;
     if (Storage[route][identifier].includes(ingredient)) {
       const newList = listIngredients[route][identifier]
@@ -70,16 +81,16 @@ function RecipeInProgres({ match, history }) {
           [identifier]: newList,
         },
       };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newInfos));
+      localStorage.setItem(IN_PROGRESS_RECIPES, JSON.stringify(newInfos));
       return setListIngredients(newInfos);
     }
     Storage[route][identifier].push(ingredient);
-    localStorage.setItem('inProgressRecipes', JSON.stringify(Storage));
+    localStorage.setItem(IN_PROGRESS_RECIPES, JSON.stringify(Storage));
     setListIngredients(Storage);
   };
 
   const shareLink = () => {
-    clipboardCopy(`http://localhost:3000/${route}/${id}`);
+    clipboardCopy(`${URL_BASE}${route}/${id}`);
     setLinkCopied(!linkCopied);
   };
 
@@ -90,7 +101,7 @@ function RecipeInProgres({ match, history }) {
   };
 
   const favoriteRecipes = () => {
-    const recipesFavorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const recipesFavorite = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
     if (isFavorite) {
       deleteFavorite(foodInProgress, Favorite);
       setIsFavorite(false);
@@ -105,13 +116,13 @@ function RecipeInProgres({ match, history }) {
         image: foodInProgress.strMealThumb || foodInProgress.strDrinkThumb,
       };
       recipesFavorite.push(newFavorite);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(recipesFavorite));
+      localStorage.setItem(FAVORITE_RECIPES, JSON.stringify(recipesFavorite));
       setIsFavorite(true);
     }
   };
 
   const redirectToRecipeDone = () => {
-    const recipesDone = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const recipesDone = JSON.parse(localStorage.getItem(DONE_RECIPES)) || [];
     const dateNow = new Date();
     const newRecipeDone = {
       id: foodInProgress.idMeal || foodInProgress.idDrink,
@@ -129,28 +140,26 @@ function RecipeInProgres({ match, history }) {
     history.push('/done-recipes');
   };
   return (
-    <>
+    <div>
+      <Header />
       {foodInProgress && (
-        <>
-          {' '}
-          <h2 data-testid="recipe-title">
-            {' '}
+        <div className="recipe-in-progress">
+          <h2>
             {foodInProgress.strMeal || foodInProgress.strDrink}
           </h2>
           <img
             src={ foodInProgress.strMealThumb || foodInProgress.strDrinkThumb }
             alt=""
-            data-testid="recipe-photo"
           />
-          <p data-testid="recipe-category">
-            {foodInProgress.strAlcoholic
-             || foodInProgress.strCategory}
+          <p>
+            {foodInProgress.strAlcoholic || foodInProgress.strCategory}
           </p>
-          <p data-testid="instructions">{foodInProgress.strInstructions}</p>
+          <p className="instructions">
+            {foodInProgress.strInstructions}
+          </p>
           {foodInProgress.ingredients.map((ingredient, index) => (
             <label
               key={ `${index} - ${ingredient}` }
-              data-testid={ `${index}-ingredient-step` }
               className={ verifyChecked(ingredient[1]) ? 'rasurado' : '' }
             >
               <input
@@ -158,39 +167,28 @@ function RecipeInProgres({ match, history }) {
                 checked={ verifyChecked(ingredient[1]) }
                 onChange={ () => setNewStorage(ingredient[1]) }
               />
-              { ingredient[1] }
+              {ingredient[1]}
             </label>
           ))}
-        </>)}
-      <button
-        onClick={ () => shareLink() }
-        data-testid="share-btn"
-      >
-        compartilhar
-
-      </button>
-      {linkCopied && <p>Link copied!</p>}
-
-      <button
-        onClick={ () => favoriteRecipes() }
-      >
-        <img
-          src={ isFavorite
-            ? blackHeartIcon : whiteHeartIcon }
-          data-testid="favorite-btn"
-          alt="favoriteIcon"
-        />
-
-      </button>
-      <button
-        disabled={ listIngredients[route] && listIngredients[route][id].length !== 0 }
-        onClick={ () => redirectToRecipeDone() }
-        data-testid="finish-recipe-btn"
-      >
-        finalizar receita
-
-      </button>
-    </>
+          <button onClick={ () => shareLink() }>
+            compartilhar
+          </button>
+          {linkCopied && <p>Link copied!</p>}
+          <button onClick={ () => favoriteRecipes() }>
+            <img
+              src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+              alt="favoriteIcon"
+            />
+          </button>
+          <button
+            disabled={ listIngredients[route] && listIngredients[route][id].length !== 0 }
+            onClick={ () => redirectToRecipeDone() }
+          >
+            finalizar receita
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

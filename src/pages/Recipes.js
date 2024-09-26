@@ -1,41 +1,54 @@
+/* eslint-disable complexity */
 import { useEffect, useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import { fetchCategories, fetchApi,
-  fetchMealsByCategorie, fetchDrinksByCategorie } from '../services';
+  fetchMealsByCategorie, fetchDrinksByCategorie,
+} from '../services';
+import appContext from '../context/AppContext';
 import RecipesContext from '../context/RecipesContext';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/jsx/Header';
+import Footer from '../components/jsx/Footer';
+import SearchBar from '../components/jsx/SearchBar';
+import './css/Recipes.css';
+import {
+  URL_ALL_DRINKS,
+  URL_ALL_FOODS,
+  URL_DRINK_BY_CATEGORY,
+  URL_FOOD_BY_CATEGORY,
+} from '../utils/constants';
 
 function Recipes({ location, history }) {
-  const { foods, setFoods, categories,
-    setCategories, searchBarFetch,
-    setSearchBarFetch } = useContext(RecipesContext);
-  const [categorieSelected, setCategorieSelected] = useState(null); // estado que controla a última categoria a ter sido selecionada
+  const {
+    foods,
+    setFoods,
+    categories,
+    setCategories,
+    searchBarFetch,
+    setSearchBarFetch,
+  } = useContext(RecipesContext);
+  const { searchBox } = useContext(appContext);
+  const [categorieSelected, setCategorieSelected] = useState(null);
 
   if ((foods.meals || foods.drinks) && searchBarFetch) {
-    // aqui o objetivo é filtrar se a requisição foi feita pelo searchBar e se retornou apenas uma receita
-    if (location.pathname === '/drinks' && foods.drinks.length === 1) {
+    if (location.pathname === '/drinks' && foods.drinks && foods.drinks.length === 1) {
       setSearchBarFetch(false);
       history.push(`/drinks/${foods.drinks[0].id}`);
     }
 
-    if (location.pathname === '/meals' && foods.meals.length === 1) {
+    if (location.pathname === '/meals' && foods.meals && foods.meals.length === 1) {
       setSearchBarFetch(false);
       history.push(`/meals/${foods.meals[0].id}`);
     }
   }
   useEffect(() => {
-    // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals com 12 receitas originais.
-    // a função recebe a url, a rota e a função que vai manipular os dados retornados
-
     if (location.pathname === '/meals') {
-      fetchApi('https://www.themealdb.com/api/json/v1/1/search.php?s=', 'meals', setFoods);
-      fetchCategories('https://www.themealdb.com/api/json/v1/1/list.php?c=list', 'meals', setCategories);
+      fetchApi(URL_ALL_FOODS, 'meals', setFoods);
+      fetchCategories(URL_FOOD_BY_CATEGORY, 'meals', setCategories);
     } else {
-      fetchApi('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=', 'drinks', setFoods);
-      fetchCategories('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', 'drinks', setCategories);
+      fetchApi(URL_ALL_DRINKS, 'drinks', setFoods);
+      fetchCategories(URL_DRINK_BY_CATEGORY, 'drinks', setCategories);
     }
-  }, [location.pathname]);
+  }, [location.pathname, setFoods, setCategories]);
 
   const filterResults = (categorie) => {
     // função que faz uma requisição para a api de acordo com a categoria da comida que o usuário quer acessar
@@ -66,54 +79,58 @@ function Recipes({ location, history }) {
       <Header
         title={ location.pathname === '/meals' ? 'Meals' : 'Drinks' }
       />
-      <div>
-        {categories && categories.map((categorie, index) => (
+      <div className="card-recipes-content">
+        <div className="filter-content">
+          { searchBox
+         && <SearchBar /> }
+          {categories && categories.map((categorie, index) => (
+            <button
+              onClick={ () => filterResults(categorie) }
+              key={ `${categorie} ${index}` }
+              className="categories-main"
+            >
+              {categorie}
+
+            </button>
+          ))}
           <button
-            onClick={ () => filterResults(categorie) }
-            key={ `${categorie} ${index}` }
-            data-testid={ `${categorie}-category-filter` }
+            onClick={ () => filterResults('all') }
+            className="categories-main"
           >
-            {categorie}
-
+            All
           </button>
-        ))}
-        <button
-          onClick={ () => filterResults('all') }
-          data-testid="All-category-filter"
-        >
-          All
-        </button>
-        {foods && foods.meals && foods.meals.map((food, index) => (
-          <div
-            key={ `strMeal ${index}` }
-            onClick={ () => detailRecipes(food.id) }
-            data-testid={ `${index}-recipe-card` }
-            role="presentation"
-          >
-            <img
-              alt={ food.strMeal }
-              src={ food.strMealThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
-          </div>
-        ))}
+        </div>
+        <div className="card-recipes-md">
+          {foods && foods.meals && foods.meals.map((food, index) => (
+            <div
+              key={ `strMeal ${index}` }
+              onClick={ () => detailRecipes(food.id) }
+              role="presentation"
+              className="fooodddd"
+            >
+              <img
+                alt={ food.strMeal }
+                src={ food.strMealThumb }
+              />
+              <p>{ food.strMeal }</p>
+            </div>
+          ))}
 
-        {foods && foods.drinks && foods.drinks.map((food, index) => (
-          <div
-            key={ `strDrink ${food.id}` }
-            onClick={ () => detailRecipes(food.id) }
-            role="presentation"
-            data-testid={ `${index}-recipe-card` }
-          >
-            <img
-              alt={ food.strDrink }
-              src={ food.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
-          </div>
-        ))}
+          {foods && foods.drinks && foods.drinks.map((food) => (
+            <div
+              key={ `strDrink ${food.id}` }
+              onClick={ () => detailRecipes(food.id) }
+              role="presentation"
+              className="fooodddd"
+            >
+              <img
+                alt={ food.strDrink }
+                src={ food.strDrinkThumb }
+              />
+              <p>{ food.strDrink }</p>
+            </div>
+          ))}
+        </div>
       </div>
       <Footer />
     </>

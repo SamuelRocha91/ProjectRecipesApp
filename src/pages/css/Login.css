@@ -1,0 +1,156 @@
+.section-login {
+  background: #41197f;
+  height: 422px;
+  position: absolute;
+  width: 375px;
+}
+
+.bg {
+  background: #41197f;
+}
+
+.tomate {
+  filter: drop-shadow(0 7px 15px rgba(68, 73, 85, 0.25));
+  height: 279px;
+  position: absolute;
+  top: 241px;
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  width: 360px;
+}
+
+
+.elipse {
+  background-image: #f7d633;
+  height: 148.5px;
+  left: 107.71px;
+  position: absolute;
+  top: 87.92px;
+  width: 148.5px;
+}
+
+.title-h1 h1 {
+  background-color: white;
+  color: #41197f;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  height: 21px;
+  left: 89px;
+  letter-spacing: 0.165em;
+  line-height: 20px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  top: 524px;
+  width: 182px;
+}
+
+.inputone {
+  border: 0.5px solid #41197f;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 40px;
+  left: 42px;
+  position: absolute;
+  top: 564px;
+  width: 276px;
+}
+
+.inputwo {
+  border: 0.5px solid #41197f;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 40px;
+  left: 42px;
+  position: absolute;
+  top: 613px;
+  width: 276px;
+}
+
+.btn-login {
+  background: #fcc436;
+  border-radius: 5px;
+  height: 40px;
+  left: 42px;
+  position: absolute;
+  top: 662px;
+  width: 276px;
+}
+
+.coracao {
+  background-image: #e44343;
+  bottom: 85.85%;
+  left: 53.34%;
+  position: absolute;
+  right: 36.25%;
+  top: 18.9%;
+  z-index: 1;
+}
+
+.vetorone {
+  background-image: #41197f;
+  bottom: 85.8%;
+  left: 37.69%;
+  position: absolute;
+  right: 47.68%;
+  top: 37.64%;
+  z-index: 1;
+}
+
+.vetortwo {
+  background-image: #8958a3;
+  bottom: 79.06%;
+  left: 49.34%;
+  position: absolute;
+  right: 36.03%;
+  top: 26.45%;
+  z-index: 1;
+}
+
+.vetor {
+  background-image: #3b1574;
+  bottom: 79.99%;
+  left: 38.59%;
+  position: absolute;
+  right: 37.28%;
+  top: 27.58%;
+  z-index: 1;
+}
+
+.stroke {
+  bottom: 81.81%;
+  left: 41.3%;
+  position: absolute;
+  right: 48.93%;
+  top: 28.33%;
+  z-index: 1;
+}
+
+.retangle {
+  background-image: #fcc436;
+  height: 45px;
+  left: 83.25px;
+  position: absolute;
+  top: 164.67px;
+  width: 195.75px;
+  z-index: 1;
+}
+
+.recipes {
+  background-image: #41197f;
+  height: 28.83px;
+  left: 101.18px;
+  position: absolute;
+  top: 174.09px;
+  width: 154.18px;
+  z-index: 1;
+}
+
+.app {
+  background-image: #41197f;
+  height: 10.26px;
+  left: 166.96px;
+  position: absolute;
+  top: 215.61px;
+  width: 25.86px;
+}

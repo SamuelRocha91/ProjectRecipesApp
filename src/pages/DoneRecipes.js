@@ -1,8 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/jsx/Header';
 import shareIcon from '../images/shareIcon.svg';
+import { URL_BASE } from '../utils/constants';
+import './css/DoneRecipes.css';
+import Footer from '../components/jsx/Footer';
 
 function DoneRecipes() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -14,7 +18,7 @@ function DoneRecipes() {
   }, []);
 
   const shareLink = (id, type) => {
-    clipboardCopy(`http://localhost:3000/${type}s/${id}`);
+    clipboardCopy(`${URL_BASE}${type}s/${id}`);
     setLinkCopied(!linkCopied);
   };
 
@@ -30,102 +34,95 @@ function DoneRecipes() {
         title="Done Recipes"
         enableSearchIcon={ false }
       />
-      <button
-        onClick={ () => filterDoneRecipes('all') }
-        data-testid="filter-by-all-btn"
-      >
-        All
-
-      </button>
-      <button
-        onClick={ () => filterDoneRecipes('meal') }
-        data-testid="filter-by-meal-btn"
-      >
-        Meals
-
-      </button>
-      <button
-        onClick={ () => filterDoneRecipes('drink') }
-        data-testid="filter-by-drink-btn"
-      >
-        Drinks
-
-      </button>
-      {linkCopied && <p>Link copied!</p>}
-      {doneFood.length !== 0 && doneFood.map((recipe, index) => {
-        if (recipe.type === 'meal') {
-          return (
-            <>
-              <Link to={ `${recipe.type}s/${recipe.id}` }>
-                <h2
-                  data-testid={ `${index}-horizontal-name` }
+      <div className="done-content">
+        <button
+          className="btn-categories-main"
+          onClick={ () => filterDoneRecipes('all') }
+        >
+          All
+        </button>
+        <button
+          className="btn-categories-main"
+          onClick={ () => filterDoneRecipes('meal') }
+        >
+          Meals
+        </button>
+        <button
+          className="btn-categories-main"
+          onClick={ () => filterDoneRecipes('drink') }
+        >
+          Drinks
+        </button>
+        {linkCopied && <p>Link copied!</p>}
+        {doneFood.length !== 0 && doneFood.map((recipe, index) => {
+          if (recipe.type === 'meal') {
+            return (
+              <div className="card-done" key={ index }>
+                <Link to={ `${recipe.type}s/${recipe.id}` }>
+                  <h2>
+                    { recipe.name }
+                  </h2>
+                  <img
+                    src={ recipe.image }
+                    alt={ recipe.name }
+                  />
+                </Link>
+                <p>
+                  { `${recipe.nationality} - ${recipe.category}` }
+                </p>
+                <p>{ recipe.doneDate}</p>
+                <button
+                  className="btn-categories-main"
+                  onClick={ () => shareLink(recipe.id, recipe.type) }
                 >
-                  { recipe.name }
-
-                </h2>
+                  <img
+                    src={ shareIcon }
+                    alt={ recipe.name }
+                    className="search-img-btn"
+                  />
+                </button>
+                {recipe.tags.map((tag, indice) => {
+                  if (indice < 2) {
+                    return (
+                      <p key={ `${tag}${index}` }>
+                        { tag }
+                      </p>
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+            );
+          }
+          return (
+            <div className="card-done" key={ index }>
+              <a href={ `${recipe.type}s/${recipe.id}` }>
+                <h2>{ recipe.name }</h2>
                 <img
-                  style={ { width: '180px' } }
                   src={ recipe.image }
                   alt={ recipe.name }
-                  data-testid={ `${index}-horizontal-image` }
                 />
-              </Link>
-              <p data-testid={ `${index}-horizontal-top-text` }>
-                { `${recipe.nationality} - ${recipe.category}` }
+              </a>
+              <p>
+                { recipe.alcoholicOrNot }
+                {' '}
               </p>
-              <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate}</p>
-              <button onClick={ () => shareLink(recipe.id, recipe.type) }>
+              <p>{ recipe.doneDate.split(/[T|Z]/).join(' ') }</p>
+              <button
+                className="btn-categories-main"
+                onClick={ () => shareLink() }
+              >
                 <img
                   src={ shareIcon }
                   alt={ recipe.name }
-                  data-testid={ `${index}-horizontal-share-btn` }
+                  className="search-img-btn"
                 />
               </button>
-              {recipe.tags.map((tag, indice) => {
-                if (indice < 2) {
-                  return (
-                    <p
-                      key={ `${tag}${index}` }
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                    >
-                      { tag }
-
-                    </p>
-                  );
-                }
-                return null;
-              })}
-            </>
+            </div>
           );
-        }
-        return (
-          <>
-            <a href={ `${recipe.type}s/${recipe.id}` }>
-
-              <h2 data-testid={ `${index}-horizontal-name` }>{ recipe.name }</h2>
-              <img
-                src={ recipe.image }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-image` }
-              />
-            </a>
-
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              { recipe.alcoholicOrNot }
-              {' '}
-            </p>
-            <p data-testid={ `${index}-horizontal-done-date` }>{ recipe.doneDate }</p>
-            <button onClick={ () => shareLink() }>
-              <img
-                src={ shareIcon }
-                alt={ recipe.name }
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
-          </>
-        );
-      })}
-
+        })}
+      </div>
+      <Footer />
     </div>
   );
 }
