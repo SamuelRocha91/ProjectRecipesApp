@@ -11,6 +11,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { alreadyExist, deleteFavorite } from '../helpers/IsFavoriteLogic';
 import { saveInProgressStorage } from '../helpers/saveStorage';
+import './MainDetails.css';
 
 const urlNumber = 32;
 const numberLimitIndex = 6;
@@ -36,10 +37,8 @@ function RecipeDetails({ match, history }) {
     const { params: { id } } = match;
     if (pathname.includes('/meals')) {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`).then((data) => data.json()).then((response) => {
-        console.log(response);
         const food = response.meals[0];
         const keys = Object.entries(food);
-        console.log(keys);
         const ingredients = keys
           .filter((key) => key[0].includes('strIngredient')
           && key[1] !== null && key[1] !== '');
@@ -109,7 +108,7 @@ function RecipeDetails({ match, history }) {
       <CardDetails />
       <ListIngredients />
       {foodDetails && (
-        <p data-testid="instructions">{foodDetails.strInstructions}</p>
+        <p className="p-details">{foodDetails.strInstructions}</p>
       )}
       {foodDetails && foodDetails.strYoutube && (
         <iframe
@@ -120,27 +119,27 @@ function RecipeDetails({ match, history }) {
           title={ foodDetails.strMeal }
         />
       )}
-      <button
-        data-testid="share-btn"
-        onClick={ () => shareLink() }
-      >
-        Compartilhar
+      <div className="btns-actions">
+        <button
+          className="btns-shr"
+          onClick={ () => shareLink() }
+        >
+          Compartilhar
+        </button>
+        {linkCopied && <p>Link copied!</p>}
+        <button
+          className="btns-shr"
+          onClick={ () => favoriteRecipes() }
+        >
+          <img
+            src={ isFavorite
+              ? blackHeartIcon : whiteHeartIcon }
+            alt="favoriteIcon"
+          />
+        </button>
+      </div>
 
-      </button>
-      {linkCopied && <p>Link copied!</p>}
-
-      <button
-        onClick={ () => favoriteRecipes() }
-      >
-        <img
-          src={ isFavorite
-            ? blackHeartIcon : whiteHeartIcon }
-          data-testid="favorite-btn"
-          alt="favoriteIcon"
-        />
-      </button>
-
-      <h2>Recomendações</h2>
+      <h2 className="recomendations">Recomendações</h2>
       <div className="cardRecipes">
         {foods && foods.drinks && foods.drinks.map((food, index) => {
           if (index < numberLimitIndex) {

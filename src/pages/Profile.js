@@ -16,7 +16,6 @@ function Profile() {
   useEffect(() => {
     console.log('Componente montado');
 
-    // Função de limpeza (executada ao desmontar o componente)
     return () => {
       logout();
     };
