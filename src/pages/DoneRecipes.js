@@ -6,6 +6,7 @@ import Header from '../components/jsx/Header';
 import shareIcon from '../images/shareIcon.svg';
 import { URL_BASE } from '../utils/constants';
 import './css/DoneRecipes.css';
+import Footer from '../components/jsx/Footer';
 
 function DoneRecipes() {
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
@@ -62,7 +63,6 @@ function DoneRecipes() {
                     { recipe.name }
                   </h2>
                   <img
-                    style={ { width: '180px' } }
                     src={ recipe.image }
                     alt={ recipe.name }
                   />
@@ -122,6 +122,7 @@ function DoneRecipes() {
           );
         })}
       </div>
+      <Footer />
     </div>
   );
 }

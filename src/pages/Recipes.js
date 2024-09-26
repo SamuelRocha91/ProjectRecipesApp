@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { useEffect, useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import { fetchCategories, fetchApi,
@@ -26,24 +27,20 @@ function Recipes({ location, history }) {
     setSearchBarFetch,
   } = useContext(RecipesContext);
   const { searchBox } = useContext(appContext);
-  const [categorieSelected, setCategorieSelected] = useState(null); // estado que controla a última categoria a ter sido selecionada
+  const [categorieSelected, setCategorieSelected] = useState(null);
 
   if ((foods.meals || foods.drinks) && searchBarFetch) {
-    // aqui o objetivo é filtrar se a requisição foi feita pelo searchBar e se retornou apenas uma receita
-    if (location.pathname === '/drinks' && foods.drinks.length === 1) {
+    if (location.pathname === '/drinks' && foods.drinks && foods.drinks.length === 1) {
       setSearchBarFetch(false);
       history.push(`/drinks/${foods.drinks[0].id}`);
     }
 
-    if (location.pathname === '/meals' && foods.meals.length === 1) {
+    if (location.pathname === '/meals' && foods.meals && foods.meals.length === 1) {
       setSearchBarFetch(false);
       history.push(`/meals/${foods.meals[0].id}`);
     }
   }
   useEffect(() => {
-    // esse componente é responsável por renderizar duas pages, conforme o README: /drinks ou a /meals com 12 receitas originais.
-    // a função recebe a url, a rota e a função que vai manipular os dados retornados
-
     if (location.pathname === '/meals') {
       fetchApi(URL_ALL_FOODS, 'meals', setFoods);
       fetchCategories(URL_FOOD_BY_CATEGORY, 'meals', setCategories);

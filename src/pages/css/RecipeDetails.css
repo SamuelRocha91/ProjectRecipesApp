@@ -1,7 +1,7 @@
 .cardRecipes {
   display: flex;
   overflow-x: scroll;
-  width: 100%;
+  width: 100vw;
 }
 
 .cardIndividual {
@@ -11,4 +11,5 @@
 .btnFixed {
   bottom: 0;
   position: fixed;
+  width: 100vw;
 }

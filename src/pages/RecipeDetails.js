@@ -1,3 +1,5 @@
+/* eslint-disable complexity */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
@@ -13,7 +15,6 @@ import { alreadyExist, deleteFavorite } from '../helpers/IsFavoriteLogic';
 import { saveInProgressStorage } from '../helpers/saveStorage';
 import './css/MainDetails.css';
 import {
-  DONE_RECIPES,
   FAVORITE_RECIPES,
   IN_PROGRESS,
   URL_ALL_DRINKS,
@@ -27,9 +28,7 @@ const urlNumber = 32;
 const numberLimitIndex = 6;
 
 function RecipeDetails({ location, match, history }) {
-  const doneRecipes = JSON.parse(localStorage.getItem(DONE_RECIPES)) || [];
   const inProgressRecipes = JSON.parse(localStorage.getItem(IN_PROGRESS)) || [];
-
   const { foodDetails, setFoodDetails, setFoods, foods } = useContext(RecipesContext);
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -107,6 +106,7 @@ function RecipeDetails({ location, match, history }) {
     clipboardCopy(`http://localhost:3000${pathname}`);
     setLinkCopied(!linkCopied);
   };
+  const { params: { id } } = match;
 
   return (
     <div>
@@ -184,15 +184,16 @@ function RecipeDetails({ location, match, history }) {
             return null;
           })}
         </div>
-        { doneRecipes.length === 0
-         && (
-           <button
-             className="btnFixed"
-             data-testid="start-recipe-btn"
-             onClick={ () => redirectToRecipeInProgress() }
-           >
-             { inProgressRecipes.length !== 0 ? 'Continue Recipe' : 'Start Recipe' }
-           </button>) }
+        <button
+          className="btnFixed"
+          onClick={ () => redirectToRecipeInProgress() }
+        >
+          {(inProgressRecipes && inProgressRecipes.drinks && inProgressRecipes.drinks[id])
+            || (inProgressRecipes && inProgressRecipes.meals
+              && inProgressRecipes.meals[id])
+            ? 'Continue Recipe'
+            : 'Start Recipe'}
+        </button>
       </div>
     </div>
   );

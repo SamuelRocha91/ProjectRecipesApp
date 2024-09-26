@@ -5,6 +5,7 @@ import Header from '../components/jsx/Header';
 import blackHeart from '../images/blackHeartIcon.svg';
 import { URL_BASE, FAVORITE_RECIPES } from '../utils/constants';
 import './css/FavoriteRecipes.css';
+import Footer from '../components/jsx/Footer';
 
 function FavoriteRecipes() {
   const favorites = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
@@ -91,6 +92,7 @@ function FavoriteRecipes() {
             </section>
           ))}
       </div>
+      <Footer />
     </div>
   );
 }
