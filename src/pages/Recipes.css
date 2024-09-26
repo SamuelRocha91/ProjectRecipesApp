@@ -19,3 +19,24 @@
   font-weight: 600;
   width: 33.33%;
 }
+
+.card-recipes-md {
+  margin-bottom: 60px;
+}
+
+.fooodddd {
+  align-items: center;
+  border: 2px solid gray;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fooodddd img {
+  object-fit: cover;
+}
+
+.fooodddd p {
+  color: #a79020;
+  font-weight: 600;
+}
