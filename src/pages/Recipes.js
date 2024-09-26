@@ -5,6 +5,7 @@ import { fetchCategories, fetchApi,
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import './Recipes.css';
 
 function Recipes({ location, history }) {
   const { foods, setFoods, categories,
@@ -66,54 +67,58 @@ function Recipes({ location, history }) {
       <Header
         title={ location.pathname === '/meals' ? 'Meals' : 'Drinks' }
       />
-      <div>
-        {categories && categories.map((categorie, index) => (
+      <div className="card-recipes-content">
+        <div className="filter-content">
+          {categories && categories.map((categorie, index) => (
+            <button
+              onClick={ () => filterResults(categorie) }
+              key={ `${categorie} ${index}` }
+              className="categories-main"
+            >
+              {categorie}
+
+            </button>
+          ))}
           <button
-            onClick={ () => filterResults(categorie) }
-            key={ `${categorie} ${index}` }
-            data-testid={ `${categorie}-category-filter` }
+            onClick={ () => filterResults('all') }
+            className="categories-main"
           >
-            {categorie}
-
+            All
           </button>
-        ))}
-        <button
-          onClick={ () => filterResults('all') }
-          data-testid="All-category-filter"
-        >
-          All
-        </button>
-        {foods && foods.meals && foods.meals.map((food, index) => (
-          <div
-            key={ `strMeal ${index}` }
-            onClick={ () => detailRecipes(food.id) }
-            data-testid={ `${index}-recipe-card` }
-            role="presentation"
-          >
-            <img
-              alt={ food.strMeal }
-              src={ food.strMealThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
-          </div>
-        ))}
+        </div>
+        <div>
+          {foods && foods.meals && foods.meals.map((food, index) => (
+            <div
+              key={ `strMeal ${index}` }
+              onClick={ () => detailRecipes(food.id) }
+              data-testid={ `${index}-recipe-card` }
+              role="presentation"
+            >
+              <img
+                alt={ food.strMeal }
+                src={ food.strMealThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ food.strMeal }</p>
+            </div>
+          ))}
 
-        {foods && foods.drinks && foods.drinks.map((food, index) => (
-          <div
-            key={ `strDrink ${food.id}` }
-            onClick={ () => detailRecipes(food.id) }
-            role="presentation"
-            data-testid={ `${index}-recipe-card` }
-          >
-            <img
-              alt={ food.strDrink }
-              src={ food.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
-          </div>
-        ))}
+          {foods && foods.drinks && foods.drinks.map((food, index) => (
+            <div
+              key={ `strDrink ${food.id}` }
+              onClick={ () => detailRecipes(food.id) }
+              role="presentation"
+              data-testid={ `${index}-recipe-card` }
+            >
+              <img
+                alt={ food.strDrink }
+                src={ food.strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <p data-testid={ `${index}-card-name` }>{ food.strDrink }</p>
+            </div>
+          ))}
+        </div>
       </div>
       <Footer />
     </>

@@ -1,0 +1,21 @@
+.card-recipes-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 52px;
+
+}
+
+.categories-main {
+  background-color: #a8d5ba;
+  border-radius: 4px;
+  color: #333;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  width: 33.33%;
+}
