@@ -115,6 +115,7 @@ function Recipes({ location, history }) {
               key={ `strDrink ${food.id}` }
               onClick={ () => detailRecipes(food.id) }
               role="presentation"
+              className="fooodddd"
             >
               <img
                 alt={ food.strDrink }

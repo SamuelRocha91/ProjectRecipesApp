@@ -7,7 +7,6 @@ import drinksImg from '../images/drinkIcon.svg';
 function Footer() {
   return (
     <footer
-      data-testid="footer"
       style={ {
         position: 'fixed',
         display: 'flex',

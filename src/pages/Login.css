@@ -1,3 +1,4 @@
+/* stylelint-disable selector-max-specificity */
 section {
   background: #41197f;
   height: 422px;
@@ -51,7 +52,6 @@ section {
   width: 276px;
 }
 
-
 #coracao {
   background-image: #e44343;
   bottom: 85.85%;
@@ -61,7 +61,7 @@ section {
   top: 18.9%;
   z-index: 1;
 }
-  
+
 #vetorone {
   background-image: #41197f;
   bottom: 85.8%;
@@ -71,7 +71,7 @@ section {
   top: 37.64%;
   z-index: 1;
 }
-  
+
 #vetortwo {
   background-image: #8958a3;
   bottom: 79.06%;
@@ -93,7 +93,7 @@ section {
 }
 
 #stroke {
-  background-image: hsl(0, 0%, 100%);
+  background-image: white;
   bottom: 81.81%;
   left: 41.3%;
   position: absolute;

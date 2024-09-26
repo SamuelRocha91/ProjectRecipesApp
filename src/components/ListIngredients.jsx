@@ -9,7 +9,6 @@ function ListIngredients() {
       {foodDetails !== null && foodDetails.ingredients.map((ingredient, index) => (
         <label
           key={ `${foodDetails.instructions[index][1]}${index}` }
-          data-testid={ `${index}-ingredient-name-and-measure` }
         >
           <li
             type="checkbox"
@@ -19,7 +18,6 @@ function ListIngredients() {
               {' '}
               {foodDetails.instructions[index][1] !== null
             && `${foodDetails.instructions[index][1]}` }
-
             </span>
           </li>
 
