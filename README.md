@@ -21,7 +21,7 @@ A aplicação foi desenvolvida com foco em dispositivos móveis, com um layout o
 - Acompanhar o progresso de preparação das receitas;
 - Ver receitas já finalizadas.
 
-![Preview da aplicação](./public/recipesAppTwo.gif.gif)
+![Preview da aplicação](./public/recipesAppTwo.gif)
 
 A aplicação utiliza duas APIs distintas como base de dados:
 
