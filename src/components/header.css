@@ -26,3 +26,12 @@
   white-space: nowrap;
 }
 
+.btn-search-header {
+  background: #fcdc36;
+  border: none;
+}
+
+.image-icons {
+  display: flex;
+  gap: 8px;
+}

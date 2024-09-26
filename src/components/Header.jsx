@@ -24,13 +24,19 @@ function Header({ title, enableSearchIcon = true }) {
       <div className="title-component">
         <h1>{ title }</h1>
       </div>
-      <div>
+      <div className="image-icons">
         <Link className="btn-header" to="/profile">
           <img src={ profileIcon } alt="icone de perfil" />
         </Link>
         { searchIcon
           && (
-            <button type="button" onClick={ () => setSearchBox(!searchBox) }>
+            <button
+              type="button"
+              className="btn-search-header"
+              onClick={
+                () => setSearchBox(!searchBox)
+              }
+            >
               <img
                 src={ searchImg }
                 alt="search-icon"
