@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
@@ -26,67 +27,70 @@ function FavoriteRecipes() {
         title="Favorite Recipes"
         enableSearchIcon={ false }
       />
-      <span>Favorites</span>
-      <button
-        type="button"
-        onClick={ () => { setType('All'); } }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        onClick={ () => { setType('meal'); } }
-      >
-        Foods
-      </button>
-      <button
-        type="button"
-        onClick={ () => { setType('drink'); } }
-      >
-        Drinks
-      </button>
-      {favorites.filter((item) => type === item.type || type === 'All')
-        .map((keys, index) => (
-          <section key={ keys.id }>
-            <Link to={ `/${keys.type}s/${keys.id}` }>
-              <img
-                src={ keys.image }
-                alt="Recipe Pic"
-                style={ { width: '180px' } }
-              />
-            </Link>
-            <Link to={ `/${keys.type}s/${keys.id}` }>
-              <h1>
-                {keys.name}
-              </h1>
-            </Link>
-            <h3
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {keys.type === 'meal' ? `${keys.nationality} - ${keys.category}`
-                : `${keys.alcoholicOrNot}` }
-            </h3>
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-              src="src/images/shareIcon.svg"
-              onClick={ () => shareLink(keys) }
-            >
-              Share
-            </button>
-            {linkCopied && <p>Link copied!</p>}
-            <button
-              type="button"
-              src="../images/blackHeartIcon.svg"
-              onClick={ () => unfavorite(index) }
-            >
-              <img
+      <div className="favorites-container">
+
+        <span>Favorites</span>
+        <button
+          type="button"
+          onClick={ () => { setType('All'); } }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          onClick={ () => { setType('meal'); } }
+        >
+          Foods
+        </button>
+        <button
+          type="button"
+          onClick={ () => { setType('drink'); } }
+        >
+          Drinks
+        </button>
+        {favorites.filter((item) => type === item.type || type === 'All')
+          .map((keys, index) => (
+            <section key={ keys.id }>
+              <Link to={ `/${keys.type}s/${keys.id}` }>
+                <img
+                  src={ keys.image }
+                  alt="Recipe Pic"
+                  style={ { width: '180px' } }
+                />
+              </Link>
+              <Link to={ `/${keys.type}s/${keys.id}` }>
+                <h1>
+                  {keys.name}
+                </h1>
+              </Link>
+              <h3
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {keys.type === 'meal' ? `${keys.nationality} - ${keys.category}`
+                  : `${keys.alcoholicOrNot}` }
+              </h3>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-share-btn` }
+                src="src/images/shareIcon.svg"
+                onClick={ () => shareLink(keys) }
+              >
+                Share
+              </button>
+              {linkCopied && <p>Link copied!</p>}
+              <button
+                type="button"
                 src="../images/blackHeartIcon.svg"
-                alt="unfavoriteIcon"
-              />
-            </button>
-          </section>
-        ))}
+                onClick={ () => unfavorite(index) }
+              >
+                <img
+                  src="../images/blackHeartIcon.svg"
+                  alt="unfavoriteIcon"
+                />
+              </button>
+            </section>
+          ))}
+      </div>
     </div>
   );
 }
