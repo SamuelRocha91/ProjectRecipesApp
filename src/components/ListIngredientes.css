@@ -1,0 +1,27 @@
+.u-list {
+  list-style-type: none;
+  margin: 20px 10px;
+  padding: 0;
+}
+
+.list-it {
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  display: flex;
+  margin: 5px;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+
+.label-ingredients {
+  flex-grow: 1;
+}
+
+.span-ingredients {
+  color: #777;
+  font-style: italic;
+  margin-left: 10px;
+}
+
