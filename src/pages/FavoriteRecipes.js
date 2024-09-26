@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/jsx/Header';
 import blackHeart from '../images/blackHeartIcon.svg';
 import { URL_BASE, FAVORITE_RECIPES } from '../utils/constants';
-import './FavoriteRecipes.css';
+import './css/FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const favorites = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];

@@ -5,9 +5,9 @@ import { fetchCategories, fetchApi,
 } from '../services';
 import appContext from '../context/AppContext';
 import RecipesContext from '../context/RecipesContext';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/jsx/Header';
+import Footer from '../components/jsx/Footer';
+import SearchBar from '../components/jsx/SearchBar';
 import './Recipes.css';
 import {
   URL_ALL_DRINKS,

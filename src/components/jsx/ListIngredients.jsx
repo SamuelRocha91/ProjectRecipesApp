@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import RecipesContext from '../context/RecipesContext';
-import './ListIngredientes.css';
+import RecipesContext from '../../context/RecipesContext';
+import '../css/ListIngredientes.css';
 
 function ListIngredients() {
   const { foodDetails } = useContext(RecipesContext);

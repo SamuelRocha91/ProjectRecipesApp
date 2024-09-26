@@ -2,16 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import clipboardCopy from 'clipboard-copy';
 import RecipesContext from '../context/RecipesContext';
-import ListIngredients from '../components/ListIngredients';
-import CardRecipes from '../components/CardRecipes';
+import ListIngredients from '../components/jsx/ListIngredients';
+import CardRecipes from '../components/jsx/CardRecipes';
 import { fetchApi } from '../services';
-import CardDetails from '../components/CardDetails';
-import './RecipeDetails.css';
+import CardDetails from '../components/jsx/CardDetails';
+import './css/RecipeDetails.css';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { alreadyExist, deleteFavorite } from '../helpers/IsFavoriteLogic';
 import { saveInProgressStorage } from '../helpers/saveStorage';
-import './MainDetails.css';
+import './css/MainDetails.css';
 import {
   DONE_RECIPES,
   FAVORITE_RECIPES,

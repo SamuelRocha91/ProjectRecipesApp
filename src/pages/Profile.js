@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/jsx/Header';
+import Footer from '../components/jsx/Footer';
 import { USER } from '../utils/constants';
-import './Profile.css';
+import './css/Profile.css';
 
 function Profile() {
   const [user, setUser] = useState({ user: '', email: '' });

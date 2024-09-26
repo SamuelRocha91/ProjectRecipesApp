@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
-import { fetchApi } from '../services';
-import './SearchBar.css';
+import RecipesContext from '../../context/RecipesContext';
+import { fetchApi } from '../../services';
+import '../css/SearchBar.css';
 import {
   URL_ALL_DRINKS,
   URL_ALL_FOODS,
@@ -10,7 +10,7 @@ import {
   URL_DETAIL_FOOD,
   URL_DRINK_BY_LETTER,
   URL_FOOD_BY_LETTER,
-} from '../utils/constants';
+} from '../../utils/constants';
 
 const ALERT_MESSAGE = 'Your search must have only 1 (one) character';
 

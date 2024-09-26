@@ -6,7 +6,7 @@ import { saveInProgressStorage } from '../helpers/saveStorage';
 import { deleteFavorite, alreadyExist } from '../helpers/IsFavoriteLogic';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import './RecipesInProgress.css';
+import './css/RecipesInProgress.css';
 import {
   DONE_RECIPES,
   FAVORITE_RECIPES,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Login.css';
+import './css/Login.css';
 import tomate from '../images/tomate.png';
 import elipse from '../images/Ellipse 1.png';
 import coracao from '../images/coracao.png';

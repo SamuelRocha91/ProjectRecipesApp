@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import mealsImg from '../images/mealIcon.svg';
-import drinksImg from '../images/drinkIcon.svg';
+import mealsImg from '../../images/mealIcon.svg';
+import drinksImg from '../../images/drinkIcon.svg';
 
 // reenvio
 function Footer() {

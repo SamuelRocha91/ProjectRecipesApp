@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import clipboardCopy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/jsx/Header';
 import shareIcon from '../images/shareIcon.svg';
 import { URL_BASE } from '../utils/constants';
 

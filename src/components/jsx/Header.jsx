@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchImg from '../images/searchIcon.svg';
-import appContext from '../context/AppContext';
-import './header.css';
+import profileIcon from '../../images/profileIcon.svg';
+import searchImg from '../../images/searchIcon.svg';
+import appContext from '../../context/AppContext';
+import '../css/header.css';
 
 function Header({ title, enableSearchIcon = true }) {
   const {
