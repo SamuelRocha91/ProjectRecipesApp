@@ -4,7 +4,9 @@ export const alreadyExist = (detail, isFavorite) => {
   if (detail) {
     const detailFood = detail === null ? '' : detail;
     if (isFavorite.length !== 0) {
-      const value = isFavorite.some((favorite) => favorite.name === detailFood) || false;
+      const value = isFavorite
+        .some((favorite) => favorite.name === detailFood
+          || favorite.name === detailFood.strDrink) || false;
       return value;
     }
     return false;

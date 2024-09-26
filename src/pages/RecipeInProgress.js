@@ -15,6 +15,7 @@ import {
   URL_DETAIL_DRINK,
   URL_DETAIL_FOOD,
 } from '../utils/constants';
+import Header from '../components/jsx/Header';
 
 function RecipeInProgres({ match, history }) {
   const { location: { pathname } } = history;
@@ -23,6 +24,7 @@ function RecipeInProgres({ match, history }) {
   const route = pathname.includes('/meals') ? 'meals' : 'drinks';
   const Favorite = JSON.parse(localStorage.getItem(FAVORITE_RECIPES)) || [];
 
+  console.log('aqui');
   const [foodInProgress, setfoodInProgress] = useState(undefined);
   const [listIngredients, setListIngredients] = useState([]);
   const [isFavorite, setIsFavorite] = useState();
@@ -48,7 +50,7 @@ function RecipeInProgres({ match, history }) {
         setIsFavorite(alreadyExist(food.strMeal, Favorite));
       });
     } else {
-      fetch(`${URL_DETAIL_DRINK}=${id}`).then((data) => data.json()).then((response) => {
+      fetch(`${URL_DETAIL_DRINK}${id}`).then((data) => data.json()).then((response) => {
         const food = response.drinks[0];
         const keys = Object.entries(food);
         const ingredients = keys
@@ -139,6 +141,7 @@ function RecipeInProgres({ match, history }) {
   };
   return (
     <div>
+      <Header />
       {foodInProgress && (
         <div className="recipe-in-progress">
           <h2>

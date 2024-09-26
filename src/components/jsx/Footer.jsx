@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import mealsImg from '../../images/mealIcon.svg';
 import drinksImg from '../../images/drinkIcon.svg';
+import '../css/Footer.css';
 
-// reenvio
 function Footer() {
   return (
     <footer
@@ -14,20 +14,18 @@ function Footer() {
         backgroundColor: '#41197F',
         bottom: '0',
         padding: 15,
-        width: '100%',
       } }
     >
       <Link to="/meals">
         <img
           className="mealsicon"
-          data-testid="meals-bottom-btn"
           src={ mealsImg }
           alt="meals-icon"
         />
       </Link>
       <Link to="/drinks">
         <img
-          data-testid="drinks-bottom-btn"
+          className="drinkicon"
           src={ drinksImg }
           alt="drinks-icon"
         />

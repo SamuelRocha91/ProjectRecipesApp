@@ -8,7 +8,7 @@ import RecipesContext from '../context/RecipesContext';
 import Header from '../components/jsx/Header';
 import Footer from '../components/jsx/Footer';
 import SearchBar from '../components/jsx/SearchBar';
-import './Recipes.css';
+import './css/Recipes.css';
 import {
   URL_ALL_DRINKS,
   URL_ALL_FOODS,
@@ -46,12 +46,12 @@ function Recipes({ location, history }) {
 
     if (location.pathname === '/meals') {
       fetchApi(URL_ALL_FOODS, 'meals', setFoods);
-      fetchCategories(URL_FOOD_BY_CATEGORY, setCategories);
+      fetchCategories(URL_FOOD_BY_CATEGORY, 'meals', setCategories);
     } else {
       fetchApi(URL_ALL_DRINKS, 'drinks', setFoods);
       fetchCategories(URL_DRINK_BY_CATEGORY, 'drinks', setCategories);
     }
-  }, [location.pathname]);
+  }, [location.pathname, setFoods, setCategories]);
 
   const filterResults = (categorie) => {
     // função que faz uma requisição para a api de acordo com a categoria da comida que o usuário quer acessar
