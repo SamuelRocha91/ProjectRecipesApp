@@ -1,0 +1,64 @@
+.cards-search {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3px;
+  width: 100%;
+}
+
+.input-sb {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 15px;
+  padding: 10px;
+  transition: border 0.3s;
+  width: 90%;
+}
+
+.input-sb :focus {
+  border-color: #a8d5ba;
+  outline: none;
+}
+
+
+.radio-buttons-container {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  width: 98%;
+}
+
+.label-content {
+  align-content: center;
+  align-items: center;
+  color: #333;
+  display: flex;
+  font-size: 14px;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 2px;
+  width: 33%;
+}
+
+.div-search-btn {
+  margin: 4px;
+  width: 90%;
+}
+
+/* Estilo para o botão de busca */
+.search-btn-filter {
+  background-color: #fae207;
+  border: 2px solid black;
+  border-radius: 4px;
+  color: rgb(12, 12, 12);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 15px;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+

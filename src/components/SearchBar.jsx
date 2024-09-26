@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import { fetchApi } from '../services';
+import './SearchBar.css';
 
 function SearchBar() {
   const { setFoods, setSearchBarFetch } = useContext(RecipesContext);
@@ -39,52 +40,50 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="cards-search">
       <input
         type="text"
         name="name"
-        data-testid="search-input"
+        placeholder="Type here"
+        className="input-sb"
         value={ search.name }
         onChange={ handleChange }
       />
       <div className="radio-buttons-container">
-        <label>
-          Ingrediente
+        <label className="label-content">
+          <div>Ingrediente</div>
           <input
             type="radio"
             name="radioButtons"
             value="Ingredient"
-            data-testid="ingredient-search-radio"
             onChange={ handleChange }
           />
         </label>
-        <label>
-          Name
+        <label className="label-content">
+          <div>Name</div>
           <input
             type="radio"
             name="radioButtons"
             value="Name"
-            data-testid="name-search-radio"
             onChange={ handleChange }
           />
         </label>
-        <label>
-          First letter
+        <label className="label-content">
+          <div>First letter</div>
           <input
             type="radio"
             name="radioButtons"
             value="First"
-            data-testid="first-letter-search-radio"
             onChange={ handleChange }
           />
         </label>
       </div>
-      <div>
+      <div className="div-search-btn">
         <button
-          data-testid="exec-search-btn"
           onClick={ newRequest }
+          className="search-btn-filter"
         >
-          Buscar
+          Apply filter
         </button>
       </div>
     </div>

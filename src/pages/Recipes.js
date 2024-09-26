@@ -1,16 +1,22 @@
 import { useEffect, useContext, useState } from 'react';
 import propTypes from 'prop-types';
 import { fetchCategories, fetchApi,
-  fetchMealsByCategorie, fetchDrinksByCategorie } from '../services';
+  fetchMealsByCategorie, fetchDrinksByCategorie,
+} from '../services';
+import appContext from '../context/AppContext';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SearchBar from '../components/SearchBar';
 import './Recipes.css';
 
 function Recipes({ location, history }) {
   const { foods, setFoods, categories,
     setCategories, searchBarFetch,
     setSearchBarFetch } = useContext(RecipesContext);
+  const {
+    searchBox,
+  } = useContext(appContext);
   const [categorieSelected, setCategorieSelected] = useState(null); // estado que controla a última categoria a ter sido selecionada
 
   if ((foods.meals || foods.drinks) && searchBarFetch) {
@@ -69,6 +75,8 @@ function Recipes({ location, history }) {
       />
       <div className="card-recipes-content">
         <div className="filter-content">
+          { searchBox
+         && <SearchBar /> }
           {categories && categories.map((categorie, index) => (
             <button
               onClick={ () => filterResults(categorie) }

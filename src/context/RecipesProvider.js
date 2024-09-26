@@ -8,6 +8,7 @@ function RecipesProvider({ children }) {
   const [foodDetails, setFoodDetails] = useState(null);
   // estado temporário que salva dados da receita a ser detalhada. A ser substituído já que do req 24 em diante deve-se utilizar o math.params para resgatar o id e fazer novo fecth
   const [searchBarFetch, setSearchBarFetch] = useState(false); // armengue para resolver o seguinte problema: quando a API retorna apenas uma receita se a requisição tiver sido feita pelo searchBar automaticamente se redireciona a página, caso tenha sido feita no Recipes não.
+  const [searchBox, setSearchBox] = useState(false);
 
   const values = useMemo(() => ({
     foods,
@@ -18,9 +19,11 @@ function RecipesProvider({ children }) {
     setFoodDetails,
     searchBarFetch,
     setSearchBarFetch,
+    searchBox,
+    setSearchBox,
   }), [foods, setFoods, categories, setCategories, foodDetails,
     setFoodDetails, searchBarFetch,
-    setSearchBarFetch]);
+    setSearchBarFetch, searchBox]);
   return (
     <RecipesContext.Provider value={ values }>
       {children}
