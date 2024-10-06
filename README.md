@@ -1,10 +1,8 @@
-# <img src="https://agenciars.com.br/wp-content/uploads/2022/06/Trybe.png" alt="Trybe Logo" width="52" height="30" /> Project Recipes App <img src="https://agenciars.com.br/wp-content/uploads/2022/06/Trybe.png" alt="Trybe Logo" width="52" height="30" />
-
+# <img src="https://cdn-icons-png.flaticon.com/128/10832/10832132.png" alt="React Logo" width="42" height="30" /> Project Recipes App <img src="https://cdn-icons-png.flaticon.com/128/10832/10832132.png" alt="React Logo" width="42" height="30" />
 
 ## 🌐 [![Português](https://img.shields.io/badge/Português-green)](https://github.com/SamuelRocha91/ProjectRecipesApp/blob/main/README.md) [![Español](https://img.shields.io/badge/Español-yellow)](https://github.com/SamuelRocha91/ProjectRecipesApp/blob/main/README_es.md) [![English](https://img.shields.io/badge/English-blue)](https://github.com/SamuelRocha91/ProjectRecipesApp/blob/main/README_en.md) [![Русский](https://img.shields.io/badge/Русский-lightgrey)](https://github.com/SamuelRocha91/ProjectRecipesApp/blob/main/README_ru.md) [![中文](https://img.shields.io/badge/中文-red)](https://github.com/SamuelRocha91/ProjectRecipesApp/blob/main/README_ch.md) [![العربية](https://img.shields.io/badge/العربية-orange)](https://github.com/SamuelRocha91/ProjectRecipesApp/blob/main/README_ar.md)
 
 ![Preview da aplicação](./public/recipesAppOne.gif)
-
 
 Este projeto foi desenvolvido no módulo de Front-End do curso de Desenvolvimento Web da Trybe. Ele consiste em um aplicativo de receitas que permite aos usuários buscar, visualizar, filtrar, favoritar e acompanhar o progresso de preparação de receitas de comidas e bebidas.
 
@@ -12,14 +10,17 @@ O aplicativo foi desenvolvido utilizando **React** com os recursos mais modernos
 
 A aplicação foi desenvolvida com foco em dispositivos móveis, com um layout otimizado para telas de até **375px de largura**. Para garantir que a interface seja visualizada corretamente durante os testes, recomendamos utilizar as ferramentas de desenvolvimento do navegador (DevTools), simulando a aplicação em resoluções menores, como a de um smartphone. No Chrome, por exemplo, você pode ativar o **Modo de Visualização para Dispositivos Móveis** pressionando `Ctrl + Shift + M` no DevTools e ajustando a largura da tela para **375px**.
 
-## Funcionalidades
+<details>
+  <summary><h2>⚙️ Funcionalidades</h2></summary>
+  
+  - Pesquisar por receitas de comidas e bebidas;
+  - Filtrar receitas por categoria;
+  - Ver detalhes das receitas, incluindo ingredientes e instruções;
+  - Favoritar e salvar receitas;
+  - Acompanhar o progresso de preparação das receitas;
+  - Ver receitas já finalizadas.
 
-- Pesquisar por receitas de comidas e bebidas;
-- Filtrar receitas por categoria;
-- Ver detalhes das receitas, incluindo ingredientes e instruções;
-- Favoritar e salvar receitas;
-- Acompanhar o progresso de preparação das receitas;
-- Ver receitas já finalizadas.
+</details>
 
 ![Preview da aplicação](./public/recipesAppTwo.gif)
 
@@ -28,108 +29,119 @@ A aplicação utiliza duas APIs distintas como base de dados:
 1. [TheMealDB API](https://www.themealdb.com/api.php) para receitas de comidas;
 2. [TheCocktailDB API](https://www.thecocktaildb.com/api.php) para receitas de bebidas.
 
-## Tecnologias Utilizadas
+<details>
+  <summary><h2>🛠️ Tecnologias Utilizadas</h2></summary>
+  
+  - **React** para criação de componentes e interface;
+  - **React Router** para navegação entre as páginas;
+  - **Context API** para gerenciamento global de estado;
+  - **Hooks** para controle de ciclos de vida e estados locais;
+  - **Bootstrap** para estilização e responsividade;
+  - **Docker** para garantir portabilidade e consistência no ambiente de desenvolvimento.
 
-- **React** para criação de componentes e interface;
-- **React Router** para navegação entre as páginas;
-- **Context API** para gerenciamento global de estado;
-- **Hooks** para controle de ciclos de vida e estados locais;
-- **Bootstrap** para estilização e responsividade;
-- **Docker** para garantir portabilidade e consistência no ambiente de desenvolvimento.
+</details>
 
-## Como Rodar o Projeto
+<details>
+  <summary><h2>🚀 Como Rodar o Projeto</h2></summary>
 
-### Pré-requisitos
+  ### Pré-requisitos
 
-- **Node.js** instalado em sua máquina (versão 14 ou superior);
-- **Docker** e **Docker Compose** instalados (caso queira rodar o projeto com Docker).
+  - **Node.js** instalado em sua máquina (versão 14 ou superior);
+  - **Docker** e **Docker Compose** instalados (caso queira rodar o projeto com Docker).
 
-### Clonando o Repositório
+  ### Clonando o Repositório
 
-```bash
-git clone https://github.com/seu-usuario/recipes-app.git
-cd recipes-app
-```
+  ```bash
+  git clone https://github.com/seu-usuario/recipes-app.git
+  cd recipes-app
+  ```
 
-### Rodando o Projeto Localmente (Sem Docker)
+  ### Rodando o Projeto Localmente (Sem Docker)
 
-1. Instale as dependências do projeto:
+  1. Instale as dependências do projeto:
 
-   ```bash
-   npm install
-   ```
+     ```bash
+     npm install
+     ```
 
-2. Inicie o servidor de desenvolvimento:
+  2. Inicie o servidor de desenvolvimento:
 
-   ```bash
-   npm start
-   ```
+     ```bash
+     npm start
+     ```
 
-3. Acesse o aplicativo no navegador:
+  3. Acesse o aplicativo no navegador:
 
-   ```
-   http://localhost:3000
-   ```
+     ```
+     http://localhost:3000
+     ```
 
-### Rodando o Projeto com Docker
+  ### Rodando o Projeto com Docker
 
-1. Construa a imagem Docker:
+  1. Construa a imagem Docker:
 
-   ```bash
-   docker build -t recipes-app .
-   ```
+     ```bash
+     docker build -t recipes-app .
+     ```
 
-2. Execute o contêiner Docker:
+  2. Execute o contêiner Docker:
 
-   ```bash
-   docker run -p 3000:3000 recipes-app
-   ```
+     ```bash
+     docker run -p 3000:3000 recipes-app
+     ```
 
-3. Acesse o aplicativo no navegador:
+  3. Acesse o aplicativo no navegador:
 
-   ```
-   http://localhost:3000
-   ```
+     ```
+     http://localhost:3000
+     ```
 
-### Estrutura do Projeto
+  ### Estrutura do Projeto
 
-O projeto é organizado da seguinte forma:
+  O projeto é organizado da seguinte forma:
 
-```bash
-src/
-  ├── components/          # Componentes reutilizáveis
-  ├── pages/               # Páginas principais da aplicação (Login, Receitas, Favoritos, Perfil, etc.)
-  ├── services/            # Lógica para requisições às APIs
-  ├── context/             # Configuração de Context API
-  ├── App.js               # Componente principal contendo as rotas
-  └── index.js             # Ponto de entrada da aplicação
-```
+  ```bash
+  src/
+    ├── components/          # Componentes reutilizáveis
+    ├── pages/               # Páginas principais da aplicação (Login, Receitas, Favoritos, Perfil, etc.)
+    ├── services/            # Lógica para requisições às APIs
+    ├── context/             # Configuração de Context API
+    ├── App.js               # Componente principal contendo as rotas
+    └── index.js             # Ponto de entrada da aplicação
+  ```
 
-## Metodologias e Competências Desenvolvidas
+</details>
 
-Durante o desenvolvimento deste projeto, as seguintes competências foram trabalhadas:
+<details>
+  <summary><h2>📈 Metodologias e Competências Desenvolvidas</h2></summary>
 
-- **Metodologias Ágeis**: Trabalho em equipe utilizando **Scrum** e **Trello** para gerenciar tarefas e funcionalidades;
-- **React Routes**: Implementação de rotas dinâmicas para navegar entre as diferentes páginas da aplicação;
-- **Lógica de Programação**: Desenvolvimento de funcionalidades de busca, filtragem e manipulação de dados;
-- **Manipulação de Estado**: Gerenciamento de estado local e global com Hooks e Context API;
-- **Criação de Componentes**: Desenvolvimento de componentes reutilizáveis e responsivos para diferentes partes da aplicação.
+  Durante o desenvolvimento deste projeto, as seguintes competências foram trabalhadas:
 
-## Testes
+  - **Metodologias Ágeis**: Trabalho em equipe utilizando **Scrum** e **Trello** para gerenciar tarefas e funcionalidades;
+  - **React Routes**: Implementação de rotas dinâmicas para navegar entre as diferentes páginas da aplicação;
+  - **Lógica de Programação**: Desenvolvimento de funcionalidades de busca, filtragem e manipulação de dados;
+  - **Manipulação de Estado**: Gerenciamento de estado local e global com Hooks e Context API;
+  - **Criação de Componentes**: Desenvolvimento de componentes reutilizáveis e responsivos para diferentes partes da aplicação.
 
-Os testes da aplicação podem ser executados com o comando:
+</details>
 
-```bash
-npm test
-```
+<details>
+  <summary><h2>🧪 Testes</h2></summary>
 
-## Outros projetos
+  Os testes da aplicação podem ser executados com o comando:
 
-- 🐣 [Pokedex](https://github.com/SamuelRocha91/pokedex)
-- 🏪 [FrontEnd Online Store](https://github.com/SamuelRocha91/project-frontend-online-store)
-- 👛 [Expense organizer](https://github.com/SamuelRocha91/project-trybewallet)
-- 🎮 [Trivia](https://github.com/SamuelRocha91/trivia_game)
-- 🗡️ [Trybe Smith](https://github.com/SamuelRocha91/TrybeSmith)
-- 🪧 [Blogs Api](https://github.com/SamuelRocha91/BlogsApi)
-- 🐉 [Trybers and Dragons](https://github.com/SamuelRocha91/trybeAndDragons)
-- ⚽ [Typescript FootBall API](https://github.com/SamuelRocha91/trybeFutebolClube)
+  ```bash
+  npm test
+  ```
+
+</details>
+
+<details>
+  <summary><h2>🌟 Outros projetos</h2></summary>
+
+  - 🐣 [Pokedex](https://github.com/SamuelRocha91/pokedex)
+  - 🏪 [FrontEnd Online Store](https://github.com/SamuelRocha91/project-frontend-online-store)
+  - 👛 [Expense organizer](https://github.com/SamuelRocha91/project-trybewallet)
+  - 🎮 [Trivia](https://github.com/SamuelRocha91/trivia_game)
+
+</details>
